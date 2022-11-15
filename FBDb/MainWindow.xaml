@@ -4,9 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FBDb"
+        xmlns:viewModel="clr-namespace:WPF.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="600"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    </Grid>
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border Background="Bisque  "
+            CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75">
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75">
+                </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Tame-gotcha!"
+                       Foreground="MediumSeaGreen"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" Width="84"/>
+                <RadioButton Content="Shop" Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton Content="Style" Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" />
+            </StackPanel>
+
+            <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="375,0,0,505" Grid.Column="1" Grid.Row="1"
+                     Style="{StaticResource ModernTextbox}"/>
+
+            <ContentControl Grid.Row="1" Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
+
+
+        </Grid>
+    </Border>
 </Window>
