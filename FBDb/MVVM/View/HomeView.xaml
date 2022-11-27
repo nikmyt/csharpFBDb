@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="600">
+             d:DesignHeight="525" d:DesignWidth="525"
+             Background="#c8b7b7">
     <StackPanel>
         <TextBlock Text="Pets view"
-                   Foreground="AntiqueWhite"
+                   Foreground="#241f1c"
                    FontSize="28"
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
@@ -18,27 +19,14 @@
                     <Setter Property="Margin" Value="15,0,0,0"/>
                 </Style>
             </StackPanel.Resources>
-            <Border Width="400"
-                    Height="200"
-                    CornerRadius="20"
-                    Margin="5">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,3">
-                        <GradientStop Color="Beige" Offset="0.0"/>
-                        <GradientStop Color="PaleVioletRed" Offset="0.5"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-
-                <Border.Clip>
-                    <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200"/>
-                </Border.Clip>
+            <Border Width="481"
+                    Height="443"
+                    CornerRadius="20">
 
                 <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Put pet picture here idk. picture clips automatically"
-                                   Margin="10,15"
-                                   />
-                    </StackPanel>
+                    <Image Source="/Images/extra/shadow.png" Margin="0,0,0,-300"/>
+                    <Image x:Name="DogImage" x:Uid="DogImage2" Source="/Images/dog1/dog_sitting.png" HorizontalAlignment="Center" StretchDirection="DownOnly" Stretch="Fill" VerticalAlignment="Center"/>
+                    <!-- Need to bind this. Animate?-->
                 </Grid>
                 
             </Border>

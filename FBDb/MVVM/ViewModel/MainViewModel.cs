@@ -29,7 +29,7 @@ namespace WPF.MVVM.ViewModel
         {
             HomeVM = new HomeViewModel();
             SettingsVM = new SettingsViewModel();
-            //CurrentView = HomeVM;
+            CurrentView = HomeVM;
 
             //passing object
             HomeViewCommand = new RelayCommand(o =>

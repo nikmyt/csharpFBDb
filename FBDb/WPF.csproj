@@ -8,9 +8,54 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <None Remove="Images\dog1\dog_eating1.png" />
+    <None Remove="Images\dog1\dog_poop1.png" />
+    <None Remove="Images\dog1\dog_sitting.png" />
+    <None Remove="Images\extra\shadow.png" />
+    <None Remove="Images\ui\dogBubble.png" />
+    <None Remove="Images\ui\dogBubbleBright.png" />
+    <None Remove="Images\ui\dogLabel.png" />
+    <None Remove="Images\ui\dogLabelActive.png" />
+    <None Remove="Images\ui\dogLabelGray.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Fonts\" />
     <Folder Include="MVVM\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\dog1\dog_eating1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog1\dog_poop1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog1\dog_sitting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\extra\shadow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogBubble.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogBubbleBright.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogLabel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogLabelActive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogLabelGray.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
