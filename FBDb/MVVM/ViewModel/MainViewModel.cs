@@ -9,10 +9,14 @@ namespace WPF.MVVM.ViewModel
 {
     internal class MainViewModel : ObservableObject
     {
-        private object _currentView;
+        public RelayCommand HomeViewCommand { get; set; }
+        public RelayCommand SettingsViewCommand { get; set; }
 
+        //so here we reference xViewModels, but thats not the views. where we got views from?
         public HomeViewModel HomeVM { get; set; }
+        public SettingsViewModel SettingsVM { get; set; }
 
+        private object _currentView; //null problemo
         public object CurrentView
         {
             get { return _currentView; }
@@ -24,7 +28,19 @@ namespace WPF.MVVM.ViewModel
         public MainViewModel()
         {
             HomeVM = new HomeViewModel();
+            SettingsVM = new SettingsViewModel();
+            //CurrentView = HomeVM;
+
+            //passing object
+            HomeViewCommand = new RelayCommand(o =>
+            {
             CurrentView = HomeVM;
+            });
+
+            SettingsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = SettingsVM;
+            });
         }
     }
 }

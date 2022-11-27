@@ -16,17 +16,13 @@ using System.Windows.Shapes;
 namespace WPF.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class Settings : UserControl
     {
-        public HomeView()
+        public Settings()
         {
             InitializeComponent();
-            //dog logic
-            //toxin accumulates
-            //pet dog
-            //feed dog
         }
     }
 }

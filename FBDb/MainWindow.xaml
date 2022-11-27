@@ -8,15 +8,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="600"
         WindowStyle="None"
-        ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
-    <Border Background="Bisque  "
+
+    <Border Background="#E3DBDB"
             CornerRadius="10">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,18 +31,23 @@
                 </RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Tame-gotcha!"
+            <TextBlock Text="Icon here"
                        Foreground="MediumSeaGreen"
                        TextAlignment="Center"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" Width="84"/>
-                <RadioButton Content="Shop" Style="{StaticResource MenuButtonTheme}" />
-                <RadioButton Content="Style" Style="{StaticResource MenuButtonTheme}" />
-                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" />
-                <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             Command="{Binding HomeViewCommand}"/>
+                <RadioButton Content="Shop" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             />
+                <RadioButton Content="Style" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             />
+                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             />
+                <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             Command="{Binding SettingsViewCommand}"/>
             </StackPanel>
 
             <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="375,0,0,505" Grid.Column="1" Grid.Row="1"

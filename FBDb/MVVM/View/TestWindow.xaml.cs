@@ -10,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPF.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for TestWindow.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class TestWindow : Window
     {
-        public HomeView()
+        public TestWindow()
         {
             InitializeComponent();
-            //dog logic
-            //toxin accumulates
-            //pet dog
-            //feed dog
         }
     }
 }

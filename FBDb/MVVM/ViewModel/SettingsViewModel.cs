@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF.MVVM.ViewModel
 {
-    internal class HomeViewModel
+    internal class SettingsViewModel
     {
-
     }
 }
