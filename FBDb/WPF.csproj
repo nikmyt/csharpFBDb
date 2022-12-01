@@ -18,7 +18,9 @@
     <None Remove="Images\ui\dogBubbleBright.png" />
     <None Remove="Images\ui\dogLabel.png" />
     <None Remove="Images\ui\dogLabelActive.png" />
+    <None Remove="Images\ui\dogLabelBase.png" />
     <None Remove="Images\ui\dogLabelGray.png" />
+    <None Remove="Images\ui\dogLabelLight.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,7 +60,13 @@
     <Resource Include="Images\ui\dogLabelActive.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\ui\dogLabelBase.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\ui\dogLabelGray.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\ui\dogLabelLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -28,9 +28,10 @@ namespace WPF.MVVM.View
     public partial class HomeView : UserControl
     {
         //Labels
-        BitmapImage DogLabel = new BitmapImage(new Uri(@"/Images/ui/DogLabel.png", UriKind.Relative));
+        BitmapImage DogLabelHighlight = new BitmapImage(new Uri(@"/Images/ui/DogLabel.png", UriKind.Relative));
         BitmapImage DogLabelActive = new BitmapImage(new Uri(@"/Images/ui/DogLabelActive.png", UriKind.Relative));
-
+        BitmapImage DogLabelLight = new BitmapImage(new Uri(@"/Images/ui/DogLabelLight.png", UriKind.Relative));
+        BitmapImage DogLabelBase = new BitmapImage(new Uri(@"/Images/ui/DogLabelBase.png", UriKind.Relative));
 
         private Storyboard myStoryboard;
         DoubleAnimation myDoubleAnimation = new DoubleAnimation();
@@ -40,8 +41,11 @@ namespace WPF.MVVM.View
         bool doEat = false;
         bool doPoo = false;
 
+        int txAmount = 0; //this id store in DB
+
         int animationDuration = 1000;
         int animationDelay = 750;
+
 
         //Image<"DogImage"> = ;
         //nwm it just is.
@@ -112,24 +116,27 @@ namespace WPF.MVVM.View
         {
             //FeedButton.FontSize = 16;
             //FeedButton.Background = Brushes.Red;
-            FeedLabel.Source = DogLabelActive;
+            //FeedLabel.Source = DogLabelHighlight;
             //also dog should perfom eating animation
             //and increase TX counter
             //would be cool to have it fade animatedly yes i love the animations
-            if (FeedButton.IsMouseOver != true) //aint work
-            {
-                FeedLabel.Source = DogLabel;
-            }
+            //if (FeedButton.IsMouseOver != true) //aint work
+            //{
+            //    FeedLabel.Source = DogLabelBase;
+            //}
+            txAmount += 1;
+
+            ToxinAmount.Text = "Toxins: " + txAmount.ToString();
         }
 
         private void OnHoverEnterFeed(object sender, MouseEventArgs e)
         {
-
+            FeedLabel.Source = DogLabelHighlight;
         }
 
         private void OnHoverLeaveFeed(object sender, MouseEventArgs e)
         {
-
+            FeedLabel.Source = DogLabelBase;
         }
     }
     }

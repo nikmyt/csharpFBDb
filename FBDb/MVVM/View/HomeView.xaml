@@ -31,6 +31,8 @@
                     <Button Name="FeedButton"
                             Width="225" Height="39"
                             
+                            BorderThickness="0"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                             Click="OnClickFeed"
                             MouseEnter="OnHoverEnterFeed"
                             MouseLeave="OnHoverLeaveFeed"
@@ -40,12 +42,19 @@
                             Margin="10,16,0,0"
                             Background="Transparent"
                             BorderBrush="Transparent">
+                            <!-- its very annoying to remove the highlight (whole ass style), so its a future TODO -->
                         <Grid>
-                        <Image x:Name="FeedLabel" Source="/Images/ui/DogLabel.png"></Image>
+                        <Image x:Name="FeedLabel" Source="/Images/ui/DogLabelBase.png"></Image>
                             <TextBlock Text="Feed" Foreground="#241f1c" FontSize="20" Margin="140,-3,0,0" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         </Grid>
                     </Button>
 
+                    <Grid>
+                        <Rectangle Width="70" Height="40" Fill="#63d6bd" Margin="356,22,75,391"/>
+                        <!-- why is fill cut off... wtf -->
+                        <TextBlock x:Name="ToxinAmount" Text="Toxin: " Foreground="#241f1c" FontSize="20" Margin="210,15,-71,-25" TextAlignment="Center" FontFamily="Reem Kufi"/>
+                        <!-- bind this -->
+                    </Grid>
 
                 </Grid>
 
