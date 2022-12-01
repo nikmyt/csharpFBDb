@@ -8,11 +8,12 @@
              d:DesignHeight="525" d:DesignWidth="525"
              Background="#c8b7b7">
     <StackPanel>
-        <TextBlock Text="Pets view"
+        <TextBlock Text="Pets"
+                   FontFamily="Reem Kufi"
                    Foreground="#241f1c"
                    FontSize="28"
                    HorizontalAlignment="Left"
-                   Margin="0,0,0,20"/>
+                   Margin="20,20,20,0"/>
         <StackPanel Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -20,15 +21,34 @@
                 </Style>
             </StackPanel.Resources>
             <Border Width="481"
-                    Height="443"
-                    CornerRadius="20">
+                    Height="443">
 
                 <Grid>
                     <Image Source="/Images/extra/shadow.png" Margin="0,0,0,-300"/>
-                    <Image x:Name="DogImage" x:Uid="DogImage2" Source="/Images/dog1/dog_sitting.png" HorizontalAlignment="Center" StretchDirection="DownOnly" Stretch="Fill" VerticalAlignment="Center"/>
+                    <Image x:Name="DogImage" x:Uid="DogImage2" Source="/Images/dog1/dog_sitting1.png" HorizontalAlignment="Center" StretchDirection="DownOnly" Stretch="Fill" VerticalAlignment="Center"/>
                     <!-- Need to bind this. Animate?-->
+
+                    <Button Name="FeedButton"
+                            Width="225" Height="39"
+                            
+                            Click="OnClickFeed"
+                            MouseEnter="OnHoverEnterFeed"
+                            MouseLeave="OnHoverLeaveFeed"
+                            
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="10,16,0,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                        <Grid>
+                        <Image x:Name="FeedLabel" Source="/Images/ui/DogLabel.png"></Image>
+                            <TextBlock Text="Feed" Foreground="#241f1c" FontSize="20" Margin="140,-3,0,0" TextAlignment="Center" FontFamily="Reem Kufi"/>
+                        </Grid>
+                    </Button>
+
+
                 </Grid>
-                
+
             </Border>
         </StackPanel>
     </StackPanel>

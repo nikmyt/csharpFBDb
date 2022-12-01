@@ -11,6 +11,8 @@
     <None Remove="Images\dog1\dog_eating1.png" />
     <None Remove="Images\dog1\dog_poop1.png" />
     <None Remove="Images\dog1\dog_sitting.png" />
+    <None Remove="Images\dog1\dog_sitting1.png" />
+    <None Remove="Images\extra\peter.png" />
     <None Remove="Images\extra\shadow.png" />
     <None Remove="Images\ui\dogBubble.png" />
     <None Remove="Images\ui\dogBubbleBright.png" />
@@ -35,7 +37,10 @@
     <Resource Include="Images\dog1\dog_poop1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\dog1\dog_sitting.png">
+    <Resource Include="Images\dog1\dog_sitting1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\extra\peter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\extra\shadow.png">

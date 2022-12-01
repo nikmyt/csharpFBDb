@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:FBDb"
         xmlns:viewModel="clr-namespace:WPF.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600"
-        WindowStyle="None"
+        Title="DogApp" Height="600" Width="600"
         Background="Transparent"
-        AllowsTransparency="True">
+        >
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -18,6 +17,10 @@
     <Border Background="#E3DBDB"
             CornerRadius="10">
         <Grid>
+            <!--would be cool to make grid size up/down in anim
+            so the logo is a loading screen and then
+            it becomes the app!!!
+            YKNOW-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="75">
                 </ColumnDefinition>
@@ -31,21 +34,22 @@
                 </RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Icon here"
-                       Foreground="MediumSeaGreen"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
+
+            <Border BorderThickness="0">
+            <Image Source="Images/extra/peter.png" Margin="5"/>
+                <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#c8b7b7" Offset="0.0"/>
+                        <GradientStop Color="#e3dbdb" Offset="0.3"/>
+                </LinearGradientBrush>
+                </Border.Background>
+            </Border>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                             Command="{Binding PetStocksViewCommand}"/>
                 <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
-                <RadioButton Content="Shop" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                <RadioButton Content="Style" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
                 <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding SettingsViewCommand}"/>
             </StackPanel>

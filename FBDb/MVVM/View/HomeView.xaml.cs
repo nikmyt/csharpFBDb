@@ -21,8 +21,16 @@ namespace WPF.MVVM.View
     /// <summary>
     /// Interaction logic for HomeView.xaml
     /// </summary>
+    /// 
+
+    //global varible which dog is choosen or smth
+
     public partial class HomeView : UserControl
     {
+        //Labels
+        BitmapImage DogLabel = new BitmapImage(new Uri(@"/Images/ui/DogLabel.png", UriKind.Relative));
+        BitmapImage DogLabelActive = new BitmapImage(new Uri(@"/Images/ui/DogLabelActive.png", UriKind.Relative));
+
 
         private Storyboard myStoryboard;
         DoubleAnimation myDoubleAnimation = new DoubleAnimation();
@@ -31,7 +39,10 @@ namespace WPF.MVVM.View
         bool doBreathe = true;
         bool doEat = false;
         bool doPoo = false;
-        
+
+        int animationDuration = 1000;
+        int animationDelay = 750;
+
         //Image<"DogImage"> = ;
         //nwm it just is.
 
@@ -43,18 +54,25 @@ namespace WPF.MVVM.View
             //pet dog
             //feed dog
 
-            //System.Printing.Print(DogImage.Width);
             DogBreatheAnim();
 
         }
 
-        public void DogBreatheAnim() //id put all dog anims in DogAnimations.cs and then reference, preferably
+        public void DogBreatheAnim()
+        {
+            DogBreatheAnimWidth();
+            DogBreatheAnimHeight();
+            //TODO: should keep track where the anims ended so its continuous when switching
+        }
+
+        public void DogBreatheAnimWidth() //id put all dog anims in DogAnimations.cs and then reference, preferably
         {
             //make this a method. DogBreatheAnim()
             myDoubleAnimation.From = 480; //481, 443
-            myDoubleAnimation.To = 240; 
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500)); //5000 is like 5 seconds bruh
+            myDoubleAnimation.To = 440; 
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration)); //5000 is like 5 seconds bruh
             myDoubleAnimation.AutoReverse = true;
+            myDoubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
 
             // Create the storyboard.
             myStoryboard = new Storyboard();
@@ -63,22 +81,55 @@ namespace WPF.MVVM.View
             //Storyboard.SetTarget(DogImage, myDoubleAnimation);
             Storyboard.SetTargetProperty(myDoubleAnimation, new PropertyPath("Width"));
 
-            //this needs to loop. maybe a while and a bool?
-            //NOO. BECAUSE IT GETS STUCK HERE okay so i should multithread this probably.
-            //yes thats the correct interpretation of this problem, not enough threads
-            //okay, maybe id do an even or something
-            playAnimation();
+            myStoryboard.Begin(this, true);
 
             }
+
+        public void DogBreatheAnimHeight()
+        {
+            //make this a method. DogBreatheAnim()
+            myDoubleAnimation.From = 480; //481, 443
+            myDoubleAnimation.To = 440; //detachedly: dogheight - (int)dogheight / 10 to get 1%
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration)); //5000 is like 5 seconds bruh
+            myDoubleAnimation.AutoReverse = true;
+            myDoubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            myDoubleAnimation.BeginTime = TimeSpan.FromMilliseconds(animationDelay);
+
+            // Create the storyboard.
+            myStoryboard = new Storyboard();
+            myStoryboard.Children.Add(myDoubleAnimation);
+            Storyboard.SetTargetName(myDoubleAnimation, DogImage.Name); //why set name? hmm
+            //Storyboard.SetTarget(DogImage, myDoubleAnimation);
+            Storyboard.SetTargetProperty(myDoubleAnimation, new PropertyPath("Height"));
+
+            myStoryboard.Begin(this, true);
+        }
         async Task playAnimation()
         {
-            //okay i never use while myself. just do like, recursion
-            myStoryboard.Begin(this, true);
-            //it is unhappy
-            //if (doBreathe || doEat || doPoo) { playAnimation(); }
-            
-            //TODO: make this into event
+        }
+
+        void OnClickFeed(object sender, RoutedEventArgs e)
+        {
+            //FeedButton.FontSize = 16;
+            //FeedButton.Background = Brushes.Red;
+            FeedLabel.Source = DogLabelActive;
+            //also dog should perfom eating animation
+            //and increase TX counter
+            //would be cool to have it fade animatedly yes i love the animations
+            if (FeedButton.IsMouseOver != true) //aint work
+            {
+                FeedLabel.Source = DogLabel;
+            }
+        }
+
+        private void OnHoverEnterFeed(object sender, MouseEventArgs e)
+        {
 
         }
+
+        private void OnHoverLeaveFeed(object sender, MouseEventArgs e)
+        {
+
         }
+    }
     }

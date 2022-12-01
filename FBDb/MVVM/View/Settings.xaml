@@ -6,8 +6,33 @@
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="525"
-             Background="Aqua">
-    <Grid>
-            
-    </Grid>
+             Background="#c8b7b7">
+    <!---->
+    <StackPanel>
+        <TextBlock Text="Settings"
+                   FontFamily="Reem Kufi"
+                   Foreground="#241f1c"
+                   FontSize="28"
+                   HorizontalAlignment="Left"
+                   Margin="20,20,20,0"/>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Margin" Value="15,0,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+            <Border Width="481"
+                    Height="443"
+                    CornerRadius="20">
+
+                <Grid>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="255,96,0,0" VerticalAlignment="Top" Height="18" Width="195"/>
+                    <Button Content="Button" HorizontalAlignment="Left" Margin="255,26,0,0" VerticalAlignment="Top" Height="46" Width="195"/>
+
+
+                </Grid>
+
+            </Border>
+        </StackPanel>
+    </StackPanel>
 </UserControl>
