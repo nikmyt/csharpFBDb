@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="525"
-             Background="#c8b7b7">
+             Background="transparent">
     <StackPanel>
         <TextBlock Text="Pets"
                    FontFamily="Reem Kufi"
@@ -42,17 +42,17 @@
                             Margin="10,16,0,0"
                             Background="Transparent"
                             BorderBrush="Transparent">
-                            <!-- its very annoying to remove the highlight (whole ass style), so its a future TODO -->
+                        <!-- its very annoying to remove the highlight (whole ass style), so its a future TODO -->
                         <Grid>
-                        <Image x:Name="FeedLabel" Source="/Images/ui/DogLabelBase.png"></Image>
+                            <Image x:Name="FeedLabel" Source="/Images/ui/DogLabelBase.png"></Image>
                             <TextBlock Text="Feed" Foreground="#241f1c" FontSize="20" Margin="140,-3,0,0" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         </Grid>
                     </Button>
 
                     <Grid>
-                        <Rectangle Width="70" Height="40" Fill="#63d6bd" Margin="356,22,75,391"/>
+                        <Rectangle Fill="#63d6bd" Margin="341,22,26,391"/>
                         <!-- why is fill cut off... wtf -->
-                        <TextBlock x:Name="ToxinAmount" Text="Toxin: " Foreground="#241f1c" FontSize="20" Margin="210,15,-71,-25" TextAlignment="Center" FontFamily="Reem Kufi"/>
+                        <TextBlock x:Name="ToxinAmount" Text="Toxins: 0" Foreground="#241f1c" FontSize="20" Margin="210,15,-71,-25" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         <!-- bind this -->
                     </Grid>
 

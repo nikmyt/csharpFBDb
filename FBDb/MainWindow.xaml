@@ -8,27 +8,35 @@
         mc:Ignorable="d"
         Title="DogApp" Height="600" Width="600"
         Background="Transparent"
+        ResizeMode="NoResize"
         >
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#E3DBDB"
-            CornerRadius="10">
-        <Grid>
+    <Border CornerRadius="10">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,2">
+                <GradientStop Color="White" Offset="0.0"/>
+                <GradientStop Color="SlateGray" Offset="0.8"/>
+                <GradientStop Color="Black" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid x:Name="MainGrid">
             <!--would be cool to make grid size up/down in anim
             so the logo is a loading screen and then
             it becomes the app!!!
             YKNOW-->
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="75">
+                <ColumnDefinition x:Name="GridCol1" Width="75">
                 </ColumnDefinition>
                 <ColumnDefinition>
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="75">
+                <RowDefinition x:Name="GridRow1" Height="75">
                 </RowDefinition>
                 <RowDefinition>
                 </RowDefinition>
@@ -45,13 +53,16 @@
                 </Border.Background>
             </Border>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal">
+                
                 <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding PetStocksViewCommand}"/>
                 <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding SettingsViewCommand}"/>
+                
             </StackPanel>
 
             <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="375,0,0,505" Grid.Column="1" Grid.Row="1"

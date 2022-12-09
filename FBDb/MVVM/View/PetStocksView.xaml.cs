@@ -18,11 +18,15 @@ namespace WPF.MVVM.View
     /// <summary>
     /// Interaction logic for PetStockView.xaml
     /// </summary>
+
+    //TODO buy dogs logic
+    //damn itd be cool if i could dynamically load from db
     public partial class PetStocksView : UserControl
     {
         public PetStocksView()
         {
             InitializeComponent();
         }
+
     }
 }

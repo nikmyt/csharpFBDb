@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="525" d:DesignWidth="525"
-             Background="#c8b7b7">
+             d:DesignHeight="500" d:DesignWidth="500"
+             Background="Transparent" Opacity="20">
+    <!-- animate fading out -->
     <StackPanel>
         <TextBlock Text="Stocks"
                    FontFamily="Reem Kufi"
@@ -26,34 +27,84 @@
 
                 <Grid>
                     <!-- this scroll is fugly -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,23">
                         <StackPanel>
 
-                            <Border Margin="10">
-                            <Border x:Name="DogIcon" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="0,0,350,0">
-                                <Border.Clip>
-                                    <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
-                                    </RectangleGeometry>
-                                </Border.Clip>
-                                <Image Source="/Images/extra/peter.png" Margin="5"/>
-                                <!-- img needs to be more centered-->
-                            </Border>
-                                
-                            </Border>
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="DogStocksIcon" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,25,10">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Image Source="/Images/extra/peter.png" Margin="5"/>
+                                    <!-- img needs to be more centered-->
+                                </Border>
 
+                                <TextBlock Text="Peter" FontSize="30" FontFamily="Reem Kufi"/>
+                                <TextBlock Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="243"/>
+                                <Button Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"/>
+                            </StackPanel>
 
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
-                            <RadioButton Content="Buy" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
-                             />
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="DogStocksIcon2" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,25,10">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Image Source="/Images/extra/peter.png" Margin="5"/>
+                                    <!-- img needs to be more centered-->
+                                </Border>
+
+                                <TextBlock Text="Peter" FontSize="30" FontFamily="Reem Kufi"/>
+                                <TextBlock Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="243"/>
+                                <Button Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="DogStocksIcon3" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,25,10">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Image Source="/Images/extra/peter.png" Margin="5"/>
+                                    <!-- img needs to be more centered-->
+                                </Border>
+
+                                <TextBlock Text="Peter" FontSize="30" FontFamily="Reem Kufi"/>
+                                <TextBlock Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="243"/>
+                                <Button Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="DogStocksIcon4" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,25,10">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Image Source="/Images/extra/peter.png" Margin="5"/>
+                                    <!-- img needs to be more centered-->
+                                </Border>
+
+                                <TextBlock Text="Peter" FontSize="30" FontFamily="Reem Kufi"/>
+                                <TextBlock Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="243"/>
+                                <Button Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="DogStocksIcon5" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,25,10">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Image Source="/Images/extra/peter.png" Margin="5"/>
+                                    <!-- img needs to be more centered-->
+                                </Border>
+
+                                <TextBlock Text="Peter" FontSize="30" FontFamily="Reem Kufi"/>
+                                <TextBlock Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="243"/>
+                                <Button Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"/>
+                            </StackPanel>
+
                             <!-- and so on... should add automagically -->
                         </StackPanel>
                     </ScrollViewer>

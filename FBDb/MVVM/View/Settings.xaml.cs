@@ -24,5 +24,11 @@ namespace WPF.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void OnExit(object sender, RoutedEventArgs e)
+        {
+            App.Current.Windows[0].Close();
+        }
+        //ah piss, you need to go to main window and close that!
     }
 }

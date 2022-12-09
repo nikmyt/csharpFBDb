@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="525" d:DesignWidth="525"
-             Background="#c8b7b7">
+             d:DesignHeight="500" d:DesignWidth="500"
+             Background="transparent">
     <!---->
     <StackPanel>
         <TextBlock Text="Settings"
@@ -26,8 +26,12 @@
                     CornerRadius="20">
 
                 <Grid>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="255,96,0,0" VerticalAlignment="Top" Height="18" Width="195"/>
-                    <Button Content="Button" HorizontalAlignment="Left" Margin="255,26,0,0" VerticalAlignment="Top" Height="46" Width="195"/>
+                    
+                    <Button Content="Exit" HorizontalAlignment="Left" Margin="240,304,0,0" VerticalAlignment="Top" Height="46" Width="196"
+                            Click="OnExit"
+                            Command="{Binding CloseWindowCommand, Mode=OneWay}" 
+                            CommandParameter="{Binding ElementName=TestWindow}"/>
+                    <!--- how tf close -->
 
 
                 </Grid>

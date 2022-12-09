@@ -33,15 +33,20 @@ namespace WPF.MVVM.View
         BitmapImage DogLabelLight = new BitmapImage(new Uri(@"/Images/ui/DogLabelLight.png", UriKind.Relative));
         BitmapImage DogLabelBase = new BitmapImage(new Uri(@"/Images/ui/DogLabelBase.png", UriKind.Relative));
 
+        //DogPics
+        BitmapImage DogSitting = new BitmapImage(new Uri(@"/Images/dog1/dog_sitting1.png", UriKind.Relative));
+        BitmapImage DogEating = new BitmapImage(new Uri(@"/Images/dog1/dog_eating1.png", UriKind.Relative));
+
         private Storyboard myStoryboard;
         DoubleAnimation myDoubleAnimation = new DoubleAnimation();
         Int32Animation integerAnimation = new Int32Animation();
+
 
         bool doBreathe = true;
         bool doEat = false;
         bool doPoo = false;
 
-        int txAmount = 0; //this id store in DB
+        int txAmount; //this id store in DB
 
         int animationDuration = 1000;
         int animationDelay = 750;
@@ -73,7 +78,7 @@ namespace WPF.MVVM.View
         {
             //make this a method. DogBreatheAnim()
             myDoubleAnimation.From = 480; //481, 443
-            myDoubleAnimation.To = 440; 
+            myDoubleAnimation.To = 440;
             myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration)); //5000 is like 5 seconds bruh
             myDoubleAnimation.AutoReverse = true;
             myDoubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
@@ -87,7 +92,7 @@ namespace WPF.MVVM.View
 
             myStoryboard.Begin(this, true);
 
-            }
+        }
 
         public void DogBreatheAnimHeight()
         {
@@ -124,9 +129,27 @@ namespace WPF.MVVM.View
             //{
             //    FeedLabel.Source = DogLabelBase;
             //}
+            //FeedLabel.Source = DogLabelActive;
+
             txAmount += 1;
 
             ToxinAmount.Text = "Toxins: " + txAmount.ToString();
+
+            //TODO: make this anim
+            //DogImage.Source = DogEating;
+            //EatingAnimation();
+        }
+
+        public void EatingAnimation()
+        {
+            myStoryboard = new Storyboard();
+            myStoryboard.Children.Add(myDoubleAnimation); //just duration
+            Storyboard.SetTargetName(myDoubleAnimation, DogImage.Name); //why set name? hmm
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration));
+            //Storyboard.SetTarget(DogImage, myDoubleAnimation);
+            Storyboard.SetTargetProperty(DogEating, new PropertyPath("Source"));
+
+            myStoryboard.Begin(this, true);
         }
 
         private void OnHoverEnterFeed(object sender, MouseEventArgs e)

@@ -18,6 +18,8 @@ namespace WPF.MVVM.ViewModel
         public SettingsViewModel SettingsVM { get; set; }
         public PetStocksViewModel PetStocksVM { get; set; }
 
+
+
         private object _currentView; //null problemo
         public object CurrentView
         {

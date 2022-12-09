@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF.MVVM.ViewModel
+namespace WPF
 {
-    internal class PetStocksViewModel
+    internal class DatabaseLogic
     {
 
     }

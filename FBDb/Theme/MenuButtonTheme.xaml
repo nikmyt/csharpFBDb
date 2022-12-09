@@ -14,15 +14,15 @@
                               >
 
                             <TextBlock Text ="{TemplateBinding Property=Content}"
-                                       Margin="20,20,5,5"
+                                       Margin="20,20,10,5"
                                        Height="74"
                                        Width="83"
-                                       FontSize="14"
+                                       FontSize="20"
                                        FontFamily="Century Gothic"
                                        FontStretch="UltraExpanded"
                                        FontStyle="Italic"
                                        FontWeight="UltraBold"
-                                       VerticalAlignment="Center"
+                                       VerticalAlignment="Top"
                                        HorizontalAlignment="Center"
                              />
 
