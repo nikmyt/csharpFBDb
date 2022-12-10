@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.DB;
 //using static System.Windows.Media.Animation.SizeAnimationBase; //wew static
 
 namespace WPF.MVVM.View
@@ -63,7 +64,13 @@ namespace WPF.MVVM.View
             //pet dog
             //feed dog
 
+            GetOwnedPets();
+
+
+            //LoadPet();
+
             DogBreatheAnim();
+            
 
         }
 
@@ -99,10 +106,10 @@ namespace WPF.MVVM.View
             //make this a method. DogBreatheAnim()
             myDoubleAnimation.From = 480; //481, 443
             myDoubleAnimation.To = 440; //detachedly: dogheight - (int)dogheight / 10 to get 1%
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration)); //5000 is like 5 seconds bruh
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration + animationDelay)); //5000 is like 5 seconds bruh
             myDoubleAnimation.AutoReverse = true;
             myDoubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            myDoubleAnimation.BeginTime = TimeSpan.FromMilliseconds(animationDelay);
+            //myDoubleAnimation.BeginTime = TimeSpan.FromMilliseconds(animationDelay);
 
             // Create the storyboard.
             myStoryboard = new Storyboard();
@@ -133,7 +140,9 @@ namespace WPF.MVVM.View
 
             txAmount += 1;
 
-            ToxinAmount.Text = "Toxins: " + txAmount.ToString();
+            ToxinAmount.Text = "TX: " + txAmount.ToString();
+
+
 
             //TODO: make this anim
             //DogImage.Source = DogEating;
@@ -161,5 +170,32 @@ namespace WPF.MVVM.View
         {
             FeedLabel.Source = DogLabelBase;
         }
+
+        //selector dropdown = combo box
+        //get dogs i bought (table bought pets)
+        public void ComboBoxDataBindingSample()
+        {
+            Selector.ItemsSource = typeof(Colors).GetProperties();
+        }
+
+        public void GetOwnedPets()
+        {
+            int petid;
+
+            using (var db = new myDbContext())
+            {
+                for (int i = 1; i < db.OwnedPets.Count() + 1; i++)
+                {
+                    //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
+                    petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
+                    //select the damn thing backward
+
+                    Selector.Items.Add(petid.ToString());
+                }
+            }
+        }
+        //selected item: ComboBoxItem cbi = (ComboBoxItem)ComboBox1.SelectedItem;  
+
+
     }
-    }
+}

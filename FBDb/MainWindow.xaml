@@ -55,18 +55,15 @@
 
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal">
-                
+
                 <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding PetStocksViewCommand}"/>
                 <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding SettingsViewCommand}"/>
-                
-            </StackPanel>
 
-            <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="375,0,0,505" Grid.Column="1" Grid.Row="1"
-                     Style="{StaticResource ModernTextbox}"/>
+            </StackPanel>
 
             <ContentControl Grid.Row="1" Grid.Column="1"
                             Margin="10"

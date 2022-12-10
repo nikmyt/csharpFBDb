@@ -8,10 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\dog1\dog_eating.png" />
     <None Remove="Images\dog1\dog_eating1.png" />
+    <None Remove="Images\dog1\dog_icon.png" />
     <None Remove="Images\dog1\dog_poop1.png" />
+    <None Remove="Images\dog1\dog_pooping.png" />
+    <None Remove="Images\dog1\dog_pooping_empty.png" />
     <None Remove="Images\dog1\dog_sitting.png" />
     <None Remove="Images\dog1\dog_sitting1.png" />
+    <None Remove="Images\dog2\dog_eating.png" />
+    <None Remove="Images\dog2\dog_icon.png" />
+    <None Remove="Images\dog2\dog_pooping.png" />
+    <None Remove="Images\dog2\dog_pooping_empty.png" />
+    <None Remove="Images\dog2\dog_sitting.png" />
+    <None Remove="Images\dog3\dog_eating.png" />
+    <None Remove="Images\dog3\dog_icon.png" />
+    <None Remove="Images\dog3\dog_pooping.png" />
+    <None Remove="Images\dog3\dog_pooping_empty.png" />
+    <None Remove="Images\dog3\dog_sitting.png" />
+    <None Remove="Images\extra\missing.png" />
     <None Remove="Images\extra\peter.png" />
     <None Remove="Images\extra\shadow.png" />
     <None Remove="Images\ui\dogBubble.png" />
@@ -35,13 +50,49 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\dog1\dog_eating1.png">
+    <Resource Include="Images\dog1\dog_eating.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\dog1\dog_poop1.png">
+    <Resource Include="Images\dog1\dog_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\dog1\dog_sitting1.png">
+    <Resource Include="Images\dog1\dog_pooping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog1\dog_pooping_empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog2\dog_eating.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog2\dog_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog2\dog_pooping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog2\dog_pooping_empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog2\dog_sitting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog3\dog_eating.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog3\dog_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog3\dog_pooping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog3\dog_pooping_empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dog3\dog_sitting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\extra\missing.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\extra\peter.png">

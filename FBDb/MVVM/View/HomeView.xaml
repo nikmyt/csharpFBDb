@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="525" d:DesignWidth="525"
+             d:DesignHeight="500" d:DesignWidth="500"
              Background="transparent">
     <StackPanel>
         <TextBlock Text="Pets"
@@ -20,16 +20,17 @@
                     <Setter Property="Margin" Value="15,0,0,0"/>
                 </Style>
             </StackPanel.Resources>
+
             <Border Width="481"
                     Height="443">
 
                 <Grid>
-                    <Image Source="/Images/extra/shadow.png" Margin="0,0,0,-300"/>
-                    <Image x:Name="DogImage" x:Uid="DogImage2" Source="/Images/dog1/dog_sitting1.png" HorizontalAlignment="Center" StretchDirection="DownOnly" Stretch="Fill" VerticalAlignment="Center"/>
+                    <Image Source="/Images/extra/shadow.png" Margin="0,0,0,-300" Height="130"/>
+                    <Image x:Name="DogImage" Source="/Images/extra/missing.png" HorizontalAlignment="Center" StretchDirection="DownOnly" Stretch="Fill" VerticalAlignment="Center"/>
                     <!-- Need to bind this. Animate?-->
 
-                    <Button Name="FeedButton"
-                            Width="225" Height="39"
+                    <Button x:Name="FeedButton"
+                            Width="224" Height="39"
                             
                             BorderThickness="0"
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
@@ -39,22 +40,26 @@
                             
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Margin="10,16,0,0"
+                            Margin="16,42,0,0"
                             Background="Transparent"
                             BorderBrush="Transparent">
-                        <!-- its very annoying to remove the highlight (whole ass style), so its a future TODO -->
+                        <!-- TODO: its very annoying to remove the highlight (whole ass style) -->
+
                         <Grid>
-                            <Image x:Name="FeedLabel" Source="/Images/ui/DogLabelBase.png"></Image>
+                            <Image x:Name="FeedLabel" Source="/Images/ui/DogLabelBase.png"/>
                             <TextBlock Text="Feed" Foreground="#241f1c" FontSize="20" Margin="140,-3,0,0" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         </Grid>
                     </Button>
 
                     <Grid>
-                        <Rectangle Fill="#63d6bd" Margin="341,22,26,391"/>
+                        <Rectangle Fill="#63d6bd" Margin="324,49,43,364"/>
+                        <TextBlock x:Name="ToxinAmount" Text="TX: 0" Foreground="#241f1c" FontSize="20" Margin="210,43,-71,-53" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         <!-- why is fill cut off... wtf -->
-                        <TextBlock x:Name="ToxinAmount" Text="Toxins: 0" Foreground="#241f1c" FontSize="20" Margin="210,15,-71,-25" TextAlignment="Center" FontFamily="Reem Kufi"/>
                         <!-- bind this -->
                     </Grid>
+
+                    <ComboBox x:Name="Selector" Margin="16,0,241,410">
+                    </ComboBox>
 
                 </Grid>
 

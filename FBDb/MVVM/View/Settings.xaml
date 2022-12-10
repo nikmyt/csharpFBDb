@@ -29,8 +29,7 @@
                     
                     <Button Content="Exit" HorizontalAlignment="Left" Margin="240,304,0,0" VerticalAlignment="Top" Height="46" Width="196"
                             Click="OnExit"
-                            Command="{Binding CloseWindowCommand, Mode=OneWay}" 
-                            CommandParameter="{Binding ElementName=TestWindow}"/>
+                            Command="{Binding CloseWindowCommand, Mode=OneWay}"/>
                     <!--- how tf close -->
 
 

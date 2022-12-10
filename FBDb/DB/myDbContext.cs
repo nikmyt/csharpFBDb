@@ -27,6 +27,7 @@ namespace WPF.DB
             //optionsBuilder.UseSqlServer()
         }
         public DbSet<Pet> Pets { get; set; }
+        public DbSet<OwnedPets> OwnedPets { get; set; }
 
     }
 }

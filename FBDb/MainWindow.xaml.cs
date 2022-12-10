@@ -22,7 +22,7 @@ namespace FBDb
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     
-    //TODO start db
+    //start db
     //TODO load pets from db and populate dog stocks
     //go into mainlgoic.cs?
     //oh i guess you can just start everything here
@@ -34,15 +34,14 @@ namespace FBDb
             InitializeComponent();
             //Console.WriteLine("hello");
 
-            DatabaseLogic();
+            //DatabaseLogic();
         }
 
-        public async void DatabaseLogic()
+        public async void DatabaseLogic() //i dont NEED this here, right. just when im putting stuff in. TODO remove
         {
             var db = new myDbContext();
             db.Database.EnsureCreated();
 
-            //TODO more db stuff maybe
             //Hey so wtf am i doing? i want to load dogs and send them to PetStocksView to load, according to sprite
             //and all.
             //brainblast, you can load db from anywayhere
@@ -51,10 +50,10 @@ namespace FBDb
 
             //now you know how to send pets to db, altho most likely you'd be editing them. o well
 
-            //Pet pet;
-            //pet = new Pet() { Name = "Peter", Description = "A fine dog sure to appreciate in any collection.", ToxGeneration = 1.5, ToxProduced = 0, Sprite = "Dog1" };
-            //db.Pets.Add(pet);
-            //db.SaveChangesAsync();
+            Pet pet;
+            pet = new Pet() { Name = "Leonard", Description = "He's a little neurotic.", ToxGeneration = 1.8, ToxProduced = 0, Sprite = "Dog1" };
+            db.Pets.Add(pet);
+            db.SaveChangesAsync();
             //i was spose to use await here but i cannot
 
         }

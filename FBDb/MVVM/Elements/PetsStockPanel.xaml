@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="WPF.MVVM.Elements.PetsStockPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF.MVVM.Elements"
+             mc:Ignorable="d">
+    
+    <!-- oh, maybe it automatically fits! duh-->
+    <StackPanel Orientation="Horizontal" Margin="5" Background="White" Opacity="10" MaxWidth="450">
+        <Border x:Name="DogStocksIcon" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,10,10">
+            <Border.Clip>
+                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
+                </RectangleGeometry>
+            </Border.Clip>
+            <Image Source="/Images/extra/peter.png" Margin="5"/>
+            <!-- img needs to be more centered-->
+        </Border>
+
+        <TextBlock x:Name="Name1" Text="Peter" TextWrapping="Wrap" FontSize="26" FontFamily="Reem Kufi" Margin="0,20,10,10" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" MaxWidth="100"/>
+        <TextBlock x:Name="Description1" Margin="10" Text="Peter is a dog sure to appreciate in any collection." FontSize="14" FontFamily="Reem Kufi" TextWrapping="Wrap" Width="130"/>
+        <TextBlock Text="TX rate:" FontSize="14" FontFamily="Reem Kufi" Margin="0,40,10,10"/>
+        <TextBlock x:Name="ToxinProduction1" Text="0" FontSize="14" FontFamily="Reem Kufi" Margin="0,40,10,10"/>
+
+
+        <Button x:Name="Buytton" Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"
+                Click="Button_Click"/>
+    </StackPanel>
+</UserControl>
