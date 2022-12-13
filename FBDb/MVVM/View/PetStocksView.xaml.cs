@@ -71,6 +71,7 @@ namespace WPF.MVVM.View
                 string toxinproduced;
                 double toxingeneration;
                 string sprite;
+                bool isBought;
 
                 using (var db = new myDbContext())
                 {
@@ -80,10 +81,16 @@ namespace WPF.MVVM.View
                     description = db.Pets.Where(o => o.PetId == i).Select(o => o.Description).FirstOrDefault();
                     toxingeneration = db.Pets.Where(o => o.PetId == i).Select(o => o.ToxGeneration).FirstOrDefault(); //stupdio!!
 
+                    isBought = db.UserPets.Where(o => o.PetId == i).Select(o => o.isOwnedByThisUser).FirstOrDefault();
+
+                    //Hmm. Returns null. Yet...
+                    //Oh wait, it it the stupid thing with ""/"0"/"null"? My god! It may be!
+                    //And that's why it set it to null once? Hmm.
                 }
 
                 PetsStockPanel panel = new PetsStockPanel();
-                panel.petid = petid;
+                panel.petid = petid; //so we ARE setting petid so wtf are you pissy about
+                panel.isBought = isBought;
                 panel.Description1.Text = description;
                 panel.Name1.Text = name;
                 panel.ToxinProduction1.Text = toxingeneration.ToString();

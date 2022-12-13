@@ -35,18 +35,13 @@ namespace FBDb
             //Console.WriteLine("hello");
 
             //DatabaseLogic();
+            //DatabaseLogic.cleanDb();
         }
 
-        public async void DatabaseLogic() //i dont NEED this here, right. just when im putting stuff in. TODO remove
+        public async void nothing() //i dont NEED this here, right. just when im putting stuff in. TODO remove
         {
             var db = new myDbContext();
             db.Database.EnsureCreated();
-
-            //Hey so wtf am i doing? i want to load dogs and send them to PetStocksView to load, according to sprite
-            //and all.
-            //brainblast, you can load db from anywayhere
-
-
 
             //now you know how to send pets to db, altho most likely you'd be editing them. o well
 

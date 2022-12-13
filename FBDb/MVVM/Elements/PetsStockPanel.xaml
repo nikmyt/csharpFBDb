@@ -23,7 +23,7 @@
         <TextBlock x:Name="ToxinProduction1" Text="0" FontSize="14" FontFamily="Reem Kufi" Margin="0,40,10,10"/>
 
 
-        <Button x:Name="Buytton" Content="Buy" Height="32" Width="49" Margin="-90,50,0,0"
-                Click="Button_Click"/>
+        <Button x:Name="Buytton" Height="32" Width="49" Margin="-90,50,0,0"
+                Click="Buytton_Click"/>
     </StackPanel>
 </UserControl>

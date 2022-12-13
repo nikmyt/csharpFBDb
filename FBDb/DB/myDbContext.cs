@@ -29,5 +29,7 @@ namespace WPF.DB
         public DbSet<Pet> Pets { get; set; }
         public DbSet<OwnedPets> OwnedPets { get; set; }
 
+        public DbSet<UserPets> UserPets { get; set; }
+
     }
 }
