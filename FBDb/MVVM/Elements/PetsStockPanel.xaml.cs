@@ -30,6 +30,7 @@ namespace WPF.MVVM.Elements
         //this IS set
         public int petid;
         public bool isBought;
+        //DogStocksIcon
 
         /*
         Let's return to when it was working. It was simply attached to button, no asyncs, no shit. Then I needed to check if it actually
@@ -75,11 +76,11 @@ namespace WPF.MVVM.Elements
                     
                     //Hmm. Its flipped. Let's check upstream.
                     if (!isBought) {
-                    UnBoughtPet();
                     isBought = false;
+                    UnBoughtPet();
                     } else {
-                    BoughtPet();
                     isBought = true;
+                    BoughtPet();
             }
         }
 
@@ -96,9 +97,10 @@ namespace WPF.MVVM.Elements
                 {
                     try {
                         pet.isOwnedByThisUser = true;
+                        db.SaveChanges();
                     } catch(Exception ex) { throw; }
                 }
-            db.SaveChangesAsync();
+                //db.SaveChangesAsync();
                 return;
             }
         }
@@ -116,6 +118,7 @@ namespace WPF.MVVM.Elements
                     try
                     {
                         pet.isOwnedByThisUser = false;
+                        db.SaveChanges();
                     }
                     catch (Exception ex) { throw; }
                 }

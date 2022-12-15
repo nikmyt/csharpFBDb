@@ -8,12 +8,12 @@
     
     <!-- oh, maybe it automatically fits! duh-->
     <StackPanel Orientation="Horizontal" Margin="5" Background="White" Opacity="10" MaxWidth="450">
-        <Border x:Name="DogStocksIcon" CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,10,10">
+        <Border CornerRadius="20" Background="#e3dbdb" BorderThickness="0" Width="100" Height="100" Margin="5,10,10,10">
             <Border.Clip>
                 <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,200">
                 </RectangleGeometry>
             </Border.Clip>
-            <Image Source="/Images/extra/peter.png" Margin="5"/>
+            <Image x:Name="DogStocksIcon" Margin="5"/>
             <!-- img needs to be more centered-->
         </Border>
 

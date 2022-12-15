@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -63,7 +64,7 @@ namespace WPF.MVVM.View
             
 
             //i really cant tell if this works, OH WELL
-            for (int i = 1; i < db.Pets.Count() + 1; i++)
+            for (int i = 1; i < db.UserPets.Count() + 1; i++)
             {
                 int petid;
                 string name;
@@ -80,12 +81,16 @@ namespace WPF.MVVM.View
                     name = db.Pets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault();
                     description = db.Pets.Where(o => o.PetId == i).Select(o => o.Description).FirstOrDefault();
                     toxingeneration = db.Pets.Where(o => o.PetId == i).Select(o => o.ToxGeneration).FirstOrDefault(); //stupdio!!
+                    sprite = db.Pets.Where(o => o.PetId == i).Select(o => o.Sprite).FirstOrDefault(); //stupdio!!
 
-                    isBought = db.UserPets.Where(o => o.PetId == i).Select(o => o.isOwnedByThisUser).FirstOrDefault();
 
-                    //Hmm. Returns null. Yet...
-                    //Oh wait, it it the stupid thing with ""/"0"/"null"? My god! It may be!
-                    //And that's why it set it to null once? Hmm.
+                    if (db.UserPets.Where(o => o.PetId == i).Select(o => o.isOwnedByThisUser).FirstOrDefault() == true) //im not silly
+                    {
+                        isBought = true;
+                    }
+                    else { isBought = false; };
+
+                    //look fam why is there a problem here. i rlly dont know
                 }
 
                 PetsStockPanel panel = new PetsStockPanel();
@@ -94,6 +99,8 @@ namespace WPF.MVVM.View
                 panel.Description1.Text = description;
                 panel.Name1.Text = name;
                 panel.ToxinProduction1.Text = toxingeneration.ToString();
+                BitmapImage sprito = new BitmapImage(new Uri(@"/Images/" + sprite + "/dog_sitting.png", UriKind.Relative));
+                panel.DogStocksIcon.Source = sprito;
                 //as for sprite, need special code to 1) set it 2)assign random sprite if no sprite is set
 
                 StocksControl.Children.Add(panel);

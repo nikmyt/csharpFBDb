@@ -34,8 +34,10 @@ namespace WPF.MVVM.View
         //Pet params
         int petid = -1;
         string petname = null;
-        string petsprite;
-        int txAmount; //this id store in DB
+        string petsprite = "Dog3";
+        int txAmount = -1; //this id store in DB
+        int ToxinAdded = 0;
+
 
         //Labels
         BitmapImage DogLabelHighlight = new BitmapImage(new Uri(@"/Images/ui/DogLabel.png", UriKind.Relative));
@@ -46,6 +48,7 @@ namespace WPF.MVVM.View
         //DogPics
         BitmapImage DogSitting = new BitmapImage(new Uri(@"/Images/dog1/dog_sitting1.png", UriKind.Relative));
         BitmapImage DogEating = new BitmapImage(new Uri(@"/Images/dog1/dog_eating1.png", UriKind.Relative));
+        BitmapImage missingpix = new BitmapImage(new Uri(@"/Images/extra/missing.png", UriKind.Relative));
 
         private Storyboard myStoryboard;
         DoubleAnimation myDoubleAnimation = new DoubleAnimation();
@@ -56,11 +59,8 @@ namespace WPF.MVVM.View
         bool doEat = false;
         bool doPoo = false;
 
-
         int animationDuration = 1000;
         int animationDelay = 750;
-
-
 
         //Image<"DogImage"> = ;
         //nwm it just is.
@@ -68,14 +68,14 @@ namespace WPF.MVVM.View
         public HomeView()
         {
             InitializeComponent(); //okay
-            
+            DogImage.Source = missingpix;
             GetOwnedPets(); //yup
             
             DogBreatheAnim(); //sure
 
-            DisplayPet(); //seemed fine
+            //DisplayPet(); //only when... SELECTED
 
-            LoadPet(petsprite,txAmount); // Because you need to show correct TX.
+            //LoadPet(petsprite,txAmount); // Because you need to show correct TX.
             
 
         }
@@ -145,16 +145,17 @@ namespace WPF.MVVM.View
             //FeedLabel.Source = DogLabelActive;
 
             txAmount += 1;
-
+            ToxinAdded += 1;
             ToxinAmount.Text = "TX: " + txAmount.ToString();
 
             //if i were to just leave this screen (eg, hover over one of the windows or perhaps click off?) this triggers but rn it triggers
             //all the time. oop.
             //also every 10 seconds or so. autosave
-            if(petid <= 0)
-            {
+            //if(petid <= 0)
+            //{
             SaveToxins(txAmount, petid);
-            }
+            //}
+            EatingAnimation();
 
             //TODO: make this anim
             //DogImage.Source = DogEating;
@@ -166,13 +167,14 @@ namespace WPF.MVVM.View
             using (var db = new myDbContext())
             {
                 //oh shit this is mindbreaking
-                var result = db.UserPets.SingleOrDefault(o => o.PetId == petid);
-                if (result != null) //why is it null dude. why
-                {
+                //var result = db.UserPets.SingleOrDefault(o => o.PetId == petid);
+                //if (result != null) //why is it null dude. why
+                //{
                 //result.ToxProduced += ToxinValue;
-
-                db.SaveChangesAsync();
-                }
+                db.UserPets.SingleOrDefault(o => o.PetId == petid).ToxProduced += ToxinAdded; //why no work
+                db.SaveChanges();
+                ToxinAdded = 0;
+                //}
             }
         }
 
@@ -216,7 +218,7 @@ namespace WPF.MVVM.View
                     petid = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.PetId).FirstOrDefault();
                     petName = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.Name).FirstOrDefault();
                     //select the damn thing backward
-                    Selector.Items.Add(petName.ToString());
+                    Selector.Items.Add(petName.ToString()); //last thing that works
             }
         }
         //selected item: ComboBoxItem cbi = (ComboBoxItem)ComboBox1.SelectedItem;  
@@ -246,9 +248,6 @@ namespace WPF.MVVM.View
                 case "2":
                     this.Content = "poeoeop";
                     break;
-                case "3":
-                    this.Content = "wjofjosdf";
-                    break;
             }*/
         }
 
@@ -256,17 +255,20 @@ namespace WPF.MVVM.View
         {
             using (var db = new myDbContext())
             {
-                String s = Selector.Text;
+                String s = Selector.SelectedItem.ToString();
                 for (int i = 0; i < db.UserPets.Count(); i++)
                 {
-                    var result = db.UserPets.Where(o => o.PetId == i);
-                    if (s == result.Select(o => o.Name).FirstOrDefault()) //loadpet crashes
+                    //var result = db.UserPets.Where(o => o.PetId == i);
+                    //long way
+                    if (s == db.UserPets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault()) //loadpet crashes
                         {
                         //k so i get the pet thats named like that, cool. oh maybe put db.user.id into a var so i can reuse
                         //display sprite, and achieved tx amount
-                        petsprite = result.Select(o => o.Sprite).FirstOrDefault(); //sprite
-                        txAmount = result.Select(o => o.ToxProduced).FirstOrDefault();
-                        //LoadPet(petsprite, txAmount); //maybe onsert? or maybe not
+                        petid = db.UserPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
+                        petname = db.UserPets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault();
+                        petsprite = db.UserPets.Where(o => o.PetId == i).Select(o => o.Sprite).FirstOrDefault(); //sprite
+                        txAmount = db.UserPets.Where(o => o.PetId == i).Select(o => o.ToxProduced).FirstOrDefault();
+                        LoadPet(petsprite, txAmount); //maybe onsert? or maybe not
                         }   
                 }
             }
@@ -275,8 +277,10 @@ namespace WPF.MVVM.View
         public void LoadPet(string sprito, int txo)
         {
             //sprite, tx
-            DogImage.Source = new BitmapImage(new Uri(@"/Images/" + sprito + "/dog_sitting1.png", UriKind.Relative));
-            ToxinAmount.Text = "TX: " + txo;
+            BitmapImage sprite = new BitmapImage(new Uri(@"/Images/" + sprito + "/dog_sitting.png", UriKind.Relative));
+            DogImage.Source = sprite; //well its not loading this, nword
+            ToxinAmount.Text = "TX: " + txo; //soz not loading, cool
+            DogBreatheAnim(); //oh its probably hardcoded somewhere innit
         }
     }
 }
