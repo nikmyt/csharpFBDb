@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Xps.Serialization;
 using WPF.DB;
 //using static System.Windows.Media.Animation.SizeAnimationBase; //wew static
 
@@ -28,6 +31,12 @@ namespace WPF.MVVM.View
 
     public partial class HomeView : UserControl
     {
+        //Pet params
+        int petid = -1;
+        string petname = null;
+        string petsprite;
+        int txAmount; //this id store in DB
+
         //Labels
         BitmapImage DogLabelHighlight = new BitmapImage(new Uri(@"/Images/ui/DogLabel.png", UriKind.Relative));
         BitmapImage DogLabelActive = new BitmapImage(new Uri(@"/Images/ui/DogLabelActive.png", UriKind.Relative));
@@ -47,10 +56,10 @@ namespace WPF.MVVM.View
         bool doEat = false;
         bool doPoo = false;
 
-        int txAmount; //this id store in DB
 
         int animationDuration = 1000;
         int animationDelay = 750;
+
 
 
         //Image<"DogImage"> = ;
@@ -58,18 +67,15 @@ namespace WPF.MVVM.View
 
         public HomeView()
         {
-            InitializeComponent();
-            //dog logic
-            //toxin accumulates
-            //pet dog
-            //feed dog
+            InitializeComponent(); //okay
+            
+            GetOwnedPets(); //yup
+            
+            DogBreatheAnim(); //sure
 
-            GetOwnedPets();
+            DisplayPet(); //seemed fine
 
-
-            //LoadPet();
-
-            DogBreatheAnim();
+            LoadPet(petsprite,txAmount); // Because you need to show correct TX.
             
 
         }
@@ -142,11 +148,32 @@ namespace WPF.MVVM.View
 
             ToxinAmount.Text = "TX: " + txAmount.ToString();
 
-
+            //if i were to just leave this screen (eg, hover over one of the windows or perhaps click off?) this triggers but rn it triggers
+            //all the time. oop.
+            //also every 10 seconds or so. autosave
+            if(petid <= 0)
+            {
+            SaveToxins(txAmount, petid);
+            }
 
             //TODO: make this anim
             //DogImage.Source = DogEating;
             //EatingAnimation();
+        }
+
+        public void SaveToxins(int ToxinValue, int petid)
+        {
+            using (var db = new myDbContext())
+            {
+                //oh shit this is mindbreaking
+                var result = db.UserPets.SingleOrDefault(o => o.PetId == petid);
+                if (result != null) //why is it null dude. why
+                {
+                //result.ToxProduced += ToxinValue;
+
+                db.SaveChangesAsync();
+                }
+            }
         }
 
         public void EatingAnimation()
@@ -173,29 +200,83 @@ namespace WPF.MVVM.View
 
         //selector dropdown = combo box
         //get dogs i bought (table bought pets)
-        public void ComboBoxDataBindingSample()
+        /*public void ComboBoxDataBindingSample()
         {
             Selector.ItemsSource = typeof(Colors).GetProperties();
-        }
+        }*/
 
         public void GetOwnedPets()
         {
             int petid;
+            string petName;
 
             using (var db = new myDbContext())
             {
-                for (int i = 1; i < db.OwnedPets.Count() + 1; i++)
-                {
                     //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
-                    petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
+                    petid = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.PetId).FirstOrDefault();
+                    petName = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.Name).FirstOrDefault();
                     //select the damn thing backward
-
-                    Selector.Items.Add(petid.ToString());
-                }
+                    Selector.Items.Add(petName.ToString());
             }
         }
         //selected item: ComboBoxItem cbi = (ComboBoxItem)ComboBox1.SelectedItem;  
 
+        private bool handle = true;
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            if (handle) Handle();
+            handle = true;
+        }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmb = sender as ComboBox;
+            handle = !cmb.IsDropDownOpen;
+            Handle();
+        }
+
+        private void Handle()
+        {
+            DisplayPet();
+            /*switch (Selector.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+            {
+                case "1":
+                    this.Content = "peepee";
+                    break;
+                case "2":
+                    this.Content = "poeoeop";
+                    break;
+                case "3":
+                    this.Content = "wjofjosdf";
+                    break;
+            }*/
+        }
+
+        public void DisplayPet() //should be a two parter, the other one should... LoadPet()!
+        {
+            using (var db = new myDbContext())
+            {
+                String s = Selector.Text;
+                for (int i = 0; i < db.UserPets.Count(); i++)
+                {
+                    var result = db.UserPets.Where(o => o.PetId == i);
+                    if (s == result.Select(o => o.Name).FirstOrDefault()) //loadpet crashes
+                        {
+                        //k so i get the pet thats named like that, cool. oh maybe put db.user.id into a var so i can reuse
+                        //display sprite, and achieved tx amount
+                        petsprite = result.Select(o => o.Sprite).FirstOrDefault(); //sprite
+                        txAmount = result.Select(o => o.ToxProduced).FirstOrDefault();
+                        //LoadPet(petsprite, txAmount); //maybe onsert? or maybe not
+                        }   
+                }
+            }
+        }
+
+        public void LoadPet(string sprito, int txo)
+        {
+            //sprite, tx
+            DogImage.Source = new BitmapImage(new Uri(@"/Images/" + sprito + "/dog_sitting1.png", UriKind.Relative));
+            ToxinAmount.Text = "TX: " + txo;
+        }
     }
 }

@@ -58,7 +58,7 @@
                         <!-- bind this -->
                     </Grid>
 
-                    <ComboBox x:Name="Selector" Margin="16,0,241,410">
+                    <ComboBox x:Name="Selector" Margin="16,0,241,410" SelectionChanged="ComboBox_SelectionChanged" DropDownClosed="ComboBox_DropDownClosed"> 
                     </ComboBox>
 
                 </Grid>
