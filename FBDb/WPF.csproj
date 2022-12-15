@@ -39,6 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Dog1\dog_sitting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Fonts\" />
     <Folder Include="MVVM\Model\" />
   </ItemGroup>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.DB;
 
 namespace WPF.MVVM.View
 {
@@ -29,6 +30,30 @@ namespace WPF.MVVM.View
         {
             App.Current.Windows[0].Close();
         }
-        //ah piss, you need to go to main window and close that!
+
+        private void ClearData(object sender, RoutedEventArgs e)
+        {
+            using (var db = new myDbContext())
+            {
+                var ownedPets = db.UserPets.Where(x => x.isOwnedByThisUser == true).ToList(); //
+                foreach (var pet in ownedPets)
+                {
+                    pet.ToxProduced = 0;
+                    db.SaveChanges();
+                }
+            }
+        }
+        /*
+        private void ClearData2(object sender, RoutedEventArgs e)
+        {
+            using (var db = new myDbContext())
+            {
+                var ownedPets = db.UserPets.Where(x => x.isOwnedByThisUser == true).ToList();
+                foreach (var pet in ownedPets)
+                {
+                    pet.ToxProduced = 0;
+                }
+            }
+        }*/
     }
 }

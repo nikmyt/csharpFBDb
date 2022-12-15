@@ -26,7 +26,10 @@
                     CornerRadius="20">
 
                 <Grid>
-                    
+                    <Button Content="CLEAR DATA" Background="Red"  Height="30" Width="150" Margin="40,46,291,367" Click="ClearData" />
+                    <!--<Button Content="(above button works)" Height="30" Width="150" Margin="40,81,291,332" />
+                    <Button Content="🤓: Useless button bad" Height="30" Width="150" Margin="40,116,291,297" />
+                    -->
                     <Button Content="Exit" HorizontalAlignment="Left" Margin="240,304,0,0" VerticalAlignment="Top" Height="46" Width="196"
                             Click="OnExit"
                             Command="{Binding CloseWindowCommand, Mode=OneWay}"/>

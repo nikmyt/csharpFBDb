@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -144,6 +146,7 @@ namespace WPF.MVVM.View
             //}
             //FeedLabel.Source = DogLabelActive;
 
+            if (petid <= 0) { return; } else { 
             txAmount += 1;
             ToxinAdded += 1;
             ToxinAmount.Text = "TX: " + txAmount.ToString();
@@ -155,11 +158,12 @@ namespace WPF.MVVM.View
             //{
             SaveToxins(txAmount, petid);
             //}
-            EatingAnimation();
+            //EatingAnimation();
 
             //TODO: make this anim
             //DogImage.Source = DogEating;
             //EatingAnimation();
+            }
         }
 
         public void SaveToxins(int ToxinValue, int petid)
@@ -171,23 +175,49 @@ namespace WPF.MVVM.View
                 //if (result != null) //why is it null dude. why
                 //{
                 //result.ToxProduced += ToxinValue;
-                db.UserPets.SingleOrDefault(o => o.PetId == petid).ToxProduced += ToxinAdded; //why no work
+                db.UserPets.SingleOrDefault(o => o.PetId == petid).ToxProduced += ToxinAdded; //works
                 db.SaveChanges();
                 ToxinAdded = 0;
                 //}
             }
         }
+        private void SetTimer(System.Timers.Timer aTimer)
+        {
+            // Create a timer with a two second interval.
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            BitmapImage sprite = new BitmapImage(new Uri(@"/Images/" + petsprite + "/dog_eating.png", UriKind.Relative));
+            DogImage.Source = sprite; //well its not loading this, nword
+            //aTimer.Dispose();
+            DogBreatheAnim();
+        }
 
         public void EatingAnimation()
         {
+            doEat = true;
+            System.Timers.Timer aTimer = new System.Timers.Timer(2000);
+            SetTimer(aTimer);
+            BitmapImage sprite = new BitmapImage(new Uri(@"/Images/" + petsprite + "/dog_eating.png", UriKind.Relative));
+            DogImage.Source = sprite; //well its not loading this, nword
+
+            /*
             myStoryboard = new Storyboard();
             myStoryboard.Children.Add(myDoubleAnimation); //just duration
             Storyboard.SetTargetName(myDoubleAnimation, DogImage.Name); //why set name? hmm
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(animationDuration));
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(100));
+            myDoubleAnimation.AutoReverse = false;
+            //myDoubleAnimation.RepeatBehavior.2x;
             //Storyboard.SetTarget(DogImage, myDoubleAnimation);
             Storyboard.SetTargetProperty(DogEating, new PropertyPath("Source"));
 
             myStoryboard.Begin(this, true);
+            */
         }
 
         private void OnHoverEnterFeed(object sender, MouseEventArgs e)
@@ -209,16 +239,43 @@ namespace WPF.MVVM.View
 
         public void GetOwnedPets()
         {
-            int petid;
-            string petName;
+            
 
             using (var db = new myDbContext())
             {
-                    //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
-                    petid = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.PetId).FirstOrDefault();
-                    petName = db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.Name).FirstOrDefault();
-                    //select the damn thing backward
-                    Selector.Items.Add(petName.ToString()); //last thing that works
+                //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
+                //db.UserPets.Where(o => o.isOwnedByThisUser == true).Count()
+                //should load into an array which id then split, but whatever
+                //oh nwm i fucked it here too
+
+                /*for (int i = 1; i < db.UserPets.Where(o => o.isOwnedByThisUser == true).Count(); i++)
+                {
+                    if (db.UserPets.Where(o => o.PetId == i).Where(o => o.isOwnedByThisUser == true).FirstOrDefault().isOwnedByThisUser != true) //prolem here prolly
+                    { continue; }
+                    else
+                    {
+
+                        int petid;
+                        string petName;
+                        petid = db.UserPets.Where(o => o.PetId == i).Where(o => o.isOwnedByThisUser == true).Select(o => o.PetId).FirstOrDefault();
+                        petName = db.UserPets.Where(o => o.PetId == i).Where(o => o.isOwnedByThisUser == true).Select(o => o.Name).FirstOrDefault();
+
+                        Selector.Items.Add(petName.ToString()); //last thing that works
+                        petid = 0;
+                        petName = null;
+                    }
+                }*/
+
+                //we need id and petname
+                //"This is bad code, it generates 3 queries!"
+                var ownedPets = db.UserPets.Where(x => x.isOwnedByThisUser == true).ToList();
+                foreach (var pet in ownedPets)
+                {
+                    //int petid = db.Entry(pet).Reference(x => x.PetId).Load();
+                    int petid = pet.PetId;
+                    string petname = pet.Name;
+                    Selector.Items.Add(petname.ToString());
+                }
             }
         }
         //selected item: ComboBoxItem cbi = (ComboBoxItem)ComboBox1.SelectedItem;  
@@ -255,12 +312,13 @@ namespace WPF.MVVM.View
         {
             using (var db = new myDbContext())
             {
+                if (Selector.SelectedItem.ToString() == null) { return; }
                 String s = Selector.SelectedItem.ToString();
                 for (int i = 0; i < db.UserPets.Count(); i++)
                 {
                     //var result = db.UserPets.Where(o => o.PetId == i);
                     //long way
-                    if (s == db.UserPets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault()) //loadpet crashes
+                    if (s == db.UserPets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault()) //a very silly way to go about it, what if theres 2 pets of same name?
                         {
                         //k so i get the pet thats named like that, cool. oh maybe put db.user.id into a var so i can reuse
                         //display sprite, and achieved tx amount
@@ -269,7 +327,7 @@ namespace WPF.MVVM.View
                         petsprite = db.UserPets.Where(o => o.PetId == i).Select(o => o.Sprite).FirstOrDefault(); //sprite
                         txAmount = db.UserPets.Where(o => o.PetId == i).Select(o => o.ToxProduced).FirstOrDefault();
                         LoadPet(petsprite, txAmount); //maybe onsert? or maybe not
-                        }   
+                        } //else { return 0; }
                 }
             }
         }
