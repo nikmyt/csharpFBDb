@@ -29,7 +29,7 @@ namespace WPF.MVVM.Elements
     {
         //this IS set
         public int petid;
-        public bool isBought;
+        public bool isBought; //local-to-app variable is fine, oddly enough, so wheres the mistake
         //DogStocksIcon
 
         /*
@@ -44,10 +44,19 @@ namespace WPF.MVVM.Elements
         but surely not a good practice, image if every item in a game was in a table for each of millions of players. OOF.)
         */
 
-        public PetsStockPanel()
+        public PetsStockPanel(bool isBought) //yo can we add args???
         {
+            //I think the issue begins before this, and may have to do something with the panel factory.
             InitializeComponent();
-            if (isBought) { BoughtPet(); } else { UnBoughtPet(); }
+            /*using (var db = new myDbContext())
+            {
+                if (db.UserPets.Where(o => o.isOwnedByThisUser == true).Select(o => o.isOwnedByThisUser).FirstOrDefault())
+                {
+                    BoughtPet();
+                } else { UnBoughtPet(); }
+            }*/
+
+            if (!isBought) { UnBoughtPet(); } else { BoughtPet(); }
             //Well, okay. It still didn't initialize. There Must be a way to get it to refresh!... Man I don't want to put
             //empty buttons n shit. But maybe I must.
             
@@ -76,24 +85,26 @@ namespace WPF.MVVM.Elements
                     
                     //Hmm. Its flipped. Let's check upstream.
                     if (!isBought) {
-                    isBought = false;
+                    isBought = true;
                     UnBoughtPet();
                     } else {
-                    isBought = true;
+                    isBought = false;
                     BoughtPet();
             }
         }
 
         private void BoughtPet()
         {
-            using (var db = new myDbContext()) { 
-            Buytton.Content = "Sell" + petid; //STILL... is 0 at first >:(
+            using (var db = new myDbContext()) {
+            Buytton.Content = "Sell"; //+ petid; //STILL... is 0 at first >:(
             Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FFD11414");
             isBought = true;
             //db.OwnedPets.Add(new OwnedPets() { PetId = petid }); //wait, this is bad??
             //db.SaveChanges();
             var pet = db.UserPets.SingleOrDefault(p => p.PetId == petid);
-            if (pet != null)
+            Buytton.Content = db.UserPets.SingleOrDefault(p => p.PetId == petid).PetId; //ok?
+
+                if (pet != null)
                 {
                     try {
                         pet.isOwnedByThisUser = true;
@@ -109,7 +120,7 @@ namespace WPF.MVVM.Elements
         {
             using (var db = new myDbContext())
             {
-                Buytton.Content = "Buy" + petid;
+                Buytton.Content = "Buy"; //+ petid;
                 Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FF8FE877"); //#FF8FE877
                 isBought = false;
                 var pet = db.UserPets.SingleOrDefault(p => p.PetId == petid);

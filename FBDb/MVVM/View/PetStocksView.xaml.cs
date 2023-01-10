@@ -59,23 +59,9 @@ namespace WPF.MVVM.View
 
             //So several options to try
 
-
-            //Where(o => o.PetId == '1').SelectMany(o => o.Pets)
-            
-
-            //i really cant tell if this works, OH WELL
-            for (int i = 1; i < db.UserPets.Count() + 1; i++)
-            {
-                int petid;
-                string name;
-                string description;
-                string toxinproduced;
-                double toxingeneration;
-                string sprite;
-                bool isBought;
-
                 using (var db = new myDbContext())
                 {
+                    /*
                     //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
                     petid = db.Pets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
                     name = db.Pets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault();
@@ -104,8 +90,32 @@ namespace WPF.MVVM.View
                 //as for sprite, need special code to 1) set it 2)assign random sprite if no sprite is set
 
                 StocksControl.Children.Add(panel);
+            }*/
+
+                    var pets = db.UserPets.ToList();
+                    foreach (var pet in pets)
+                    {
+                        int petid = pet.PetId;
+                        string name = pet.Name;
+                        string description = pet.Description;
+                        int toxinproduced = pet.ToxProduced;
+                        double toxingeneration = pet.ToxGeneration;
+                        string sprite = pet.Sprite;
+                        bool isBought = pet.isOwnedByThisUser;
+
+                        PetsStockPanel panel = new PetsStockPanel(isBought); //HMMMMM??? will it work?
+                        panel.petid = petid; //so we ARE setting petid so wtf are you pissy about
+                        panel.isBought = isBought;
+                        panel.Description1.Text = description;
+                        panel.Name1.Text = name;
+                        panel.ToxinProduction1.Text = toxingeneration.ToString();
+                        BitmapImage sprito = new BitmapImage(new Uri(@"/Images/" + sprite + "/dog_sitting.png", UriKind.Relative));
+                        panel.DogStocksIcon.Source = sprito;
+                        //as for sprite, need special code to 1) set it 2)assign random sprite if no sprite is set
+
+                        StocksControl.Children.Add(panel);
+                    }
+                }
             }
         }
-
     }
-}
