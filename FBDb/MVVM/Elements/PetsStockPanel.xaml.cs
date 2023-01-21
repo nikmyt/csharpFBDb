@@ -44,7 +44,7 @@ namespace WPF.MVVM.Elements
         but surely not a good practice, image if every item in a game was in a table for each of millions of players. OOF.)
         */
 
-        public PetsStockPanel(bool isBought) //yo can we add args???
+        public PetsStockPanel(bool isBought, int petId) //yo can we add args???
         {
             //I think the issue begins before this, and may have to do something with the panel factory.
             InitializeComponent();
@@ -56,10 +56,10 @@ namespace WPF.MVVM.Elements
                 } else { UnBoughtPet(); }
             }*/
 
-            if (!isBought) { UnBoughtPet(); } else { BoughtPet(); }
+            if (!isBought) { UnBoughtPet(petId); } else { BoughtPet(petId); }
             //Well, okay. It still didn't initialize. There Must be a way to get it to refresh!... Man I don't want to put
             //empty buttons n shit. But maybe I must.
-            
+
             //it doesnt have enough time to initialize!!! apparently!!
             //oh, i could put it in the class above, to run thru
             /*using(var db = new myDbContext())
@@ -79,21 +79,22 @@ namespace WPF.MVVM.Elements
 
         private void Buytton_Click(object sender, RoutedEventArgs e) //Buying button. Adds pet to owned pets
         {
+            //Console.WriteLine(petid);
             //i could do it by elements number lol
-                    //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
-                    //petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
-                    
-                    //Hmm. Its flipped. Let's check upstream.
-                    if (!isBought) {
+            //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
+            //petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
+
+            //Hmm. Its flipped. Let's check upstream.
+            if (!isBought) {
                     isBought = true;
-                    UnBoughtPet();
+                    UnBoughtPet(petid);
                     } else {
                     isBought = false;
-                    BoughtPet();
+                    BoughtPet(petid);
             }
         }
 
-        private void BoughtPet()
+        private void BoughtPet(int petId)
         {
             using (var db = new myDbContext()) {
             Buytton.Content = "Sell"; //+ petid; //STILL... is 0 at first >:(
@@ -101,8 +102,12 @@ namespace WPF.MVVM.Elements
             isBought = true;
             //db.OwnedPets.Add(new OwnedPets() { PetId = petid }); //wait, this is bad??
             //db.SaveChanges();
-            var pet = db.UserPets.SingleOrDefault(p => p.PetId == petid);
-            Buytton.Content = db.UserPets.SingleOrDefault(p => p.PetId == petid).PetId; //ok?
+
+            //so what's wrong here. alright.
+            var pet = db.UserPets.SingleOrDefault(p => p.PetId == petId);
+                //Buytton.Content = db.UserPets.SingleOrDefault(p => p.PetId == petid).PetId; //oh right, this is debug checker. so i'm screwing up somewhere
+                //Buytton.Content = pet.PetId.ToString(); //oh right, this is debug checker. so i'm screwing up somewhere
+                Buytton.Content = petId;
 
                 if (pet != null)
                 {
@@ -116,14 +121,15 @@ namespace WPF.MVVM.Elements
             }
         }
 
-        private void UnBoughtPet() //async task... <t>
+        private void UnBoughtPet(int petId) //async task... <t>
         {
             using (var db = new myDbContext())
             {
                 Buytton.Content = "Buy"; //+ petid;
                 Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FF8FE877"); //#FF8FE877
                 isBought = false;
-                var pet = db.UserPets.SingleOrDefault(p => p.PetId == petid);
+                var pet = db.UserPets.SingleOrDefault(p => p.PetId == petId);
+                Buytton.Content = petId;
                 if (pet != null)
                 {
                     try

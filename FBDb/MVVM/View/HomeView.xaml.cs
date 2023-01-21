@@ -283,8 +283,9 @@ namespace WPF.MVVM.View
         private bool handle = true;
         private void ComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            if (handle) Handle();
+            if (handle) Handle(); //else Selector.SelectedItem = "";
             handle = true;
+            return;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -296,7 +297,13 @@ namespace WPF.MVVM.View
 
         private void Handle()
         {
-            DisplayPet();
+            //like it makes sense it would be checking here, otherwise its trying to set nothing
+            if (Selector.SelectedItem == null)
+            {
+                Selector.SelectedItem = "";
+                return;
+            }
+            else DisplayPet();
             /*switch (Selector.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
             {
                 case "1":
@@ -312,7 +319,9 @@ namespace WPF.MVVM.View
         {
             using (var db = new myDbContext())
             {
-                if (Selector.SelectedItem.ToString() == null) { return; }
+                if (Selector.SelectedItem.ToString() == null) {
+                    Selector.SelectedItem = "";
+                    return; }
                 String s = Selector.SelectedItem.ToString();
                 for (int i = 0; i < db.UserPets.Count(); i++)
                 {

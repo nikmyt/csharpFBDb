@@ -103,7 +103,7 @@ namespace WPF.MVVM.View
                         string sprite = pet.Sprite;
                         bool isBought = pet.isOwnedByThisUser;
 
-                        PetsStockPanel panel = new PetsStockPanel(isBought); //HMMMMM??? will it work?
+                        PetsStockPanel panel = new PetsStockPanel(isBought,petid); //HMMMMM??? will it work?
                         panel.petid = petid; //so we ARE setting petid so wtf are you pissy about
                         panel.isBought = isBought;
                         panel.Description1.Text = description;
