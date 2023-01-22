@@ -74,44 +74,63 @@ namespace WPF.MVVM.Elements
             //okay try putting it a class above
 
             //if petid is in ownedpets, then isBought = true
-            
+
+
+            //Buytton click alternative + init
+            Buytton.Click += BuySell;
+            Buytton.Click += (s, e) =>
+            {
+                //MessageBox.Show("click" + petId + petid);
+                if (!isBought)
+                {
+                    UnBoughtPet(petid);
+                    isBought = true;
+                }
+                else
+                {
+                    BoughtPet(petid);
+                    isBought = false;
+                }
+            };
+
         }
 
-        private void Buytton_Click(object sender, RoutedEventArgs e) //Buying button. Adds pet to owned pets
+        private void BuySell(object sender, RoutedEventArgs e) //So this doesn't... work??? Really?
+                                                                     //so i just spend weeks debugging DB but it's the freaking button
+                                                                     //why
+                                                                     //Click="BuySell"
         {
-            //Console.WriteLine(petid);
+            //Console.WriteLine("pee");
+            //Buytton.Content = "pee";
             //i could do it by elements number lol
             //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
             //petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
 
             //Hmm. Its flipped. Let's check upstream.
-            if (!isBought) {
-                    isBought = true;
-                    UnBoughtPet(petid);
-                    } else {
-                    isBought = false;
-                    BoughtPet(petid);
+            if (!isBought)
+            {
+                UnBoughtPet(petid);
+                isBought = true;
+            }
+            else
+            {
+                BoughtPet(petid);
+                isBought = false;
             }
         }
 
         private void BoughtPet(int petId)
         {
             using (var db = new myDbContext()) {
-            Buytton.Content = "Sell"; //+ petid; //STILL... is 0 at first >:(
-            Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FFD11414");
-            isBought = true;
-            //db.OwnedPets.Add(new OwnedPets() { PetId = petid }); //wait, this is bad??
-            //db.SaveChanges();
-
-            //so what's wrong here. alright.
-            var pet = db.UserPets.SingleOrDefault(p => p.PetId == petId);
-                //Buytton.Content = db.UserPets.SingleOrDefault(p => p.PetId == petid).PetId; //oh right, this is debug checker. so i'm screwing up somewhere
-                //Buytton.Content = pet.PetId.ToString(); //oh right, this is debug checker. so i'm screwing up somewhere
-                Buytton.Content = petId;
-
+                var pet = db.UserPets.FirstOrDefault(p => p.PetId == petId);
+                Buytton.Content = pet.Name; //debug
+                
                 if (pet != null)
                 {
                     try {
+                        Buytton.Content = "Sell"; //+ petid; //STILL... is 0 at first >:(
+                        Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FFD11414");
+                        isBought = true;
                         pet.isOwnedByThisUser = true;
                         db.SaveChanges();
                     } catch(Exception ex) { throw; }
@@ -125,15 +144,15 @@ namespace WPF.MVVM.Elements
         {
             using (var db = new myDbContext())
             {
-                Buytton.Content = "Buy"; //+ petid;
-                Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FF8FE877"); //#FF8FE877
-                isBought = false;
-                var pet = db.UserPets.SingleOrDefault(p => p.PetId == petId);
-                Buytton.Content = petId;
+                var pet = db.UserPets.FirstOrDefault(p => p.PetId == petId);
+                Buytton.Content = pet.Name; //debug
                 if (pet != null)
                 {
                     try
                     {
+                        Buytton.Content = "Buy"; //+ petid;
+                        Buytton.Background = (Brush)new BrushConverter().ConvertFrom("#FF8FE877"); //#FF8FE877
+                        isBought = false;
                         pet.isOwnedByThisUser = false;
                         db.SaveChanges();
                     }
@@ -141,7 +160,7 @@ namespace WPF.MVVM.Elements
                 }
 
                 //db.OwnedPets.Remove(new OwnedPets() { PetId = petid });
-                db.SaveChangesAsync();
+                //db.SaveChangesAsync();
                 return;
             }
         }

@@ -21,7 +21,7 @@ namespace FBDb
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     //start db
     //TODO load pets from db and populate dog stocks
     //go into mainlgoic.cs?
@@ -29,6 +29,9 @@ namespace FBDb
 
     public partial class MainWindow : Window
     {
+        //Total TX, for each pet owned.
+        public int totalTX;
+
         public MainWindow()
         {
             InitializeComponent();

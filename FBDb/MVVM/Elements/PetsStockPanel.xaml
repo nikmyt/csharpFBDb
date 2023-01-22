@@ -24,6 +24,6 @@
 
 
         <Button x:Name="Buytton" Height="32" Width="49" Margin="-90,50,0,0"
-                Click="Buytton_Click"/>
+                Click="BuySell"/>
     </StackPanel>
 </UserControl>

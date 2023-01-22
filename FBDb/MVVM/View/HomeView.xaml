@@ -58,8 +58,19 @@
                         <!-- bind this -->
                     </Grid>
 
-                    <ComboBox x:Name="Selector" Margin="16,0,241,410" SelectionChanged="ComboBox_SelectionChanged" DropDownClosed="ComboBox_DropDownClosed"> 
+                    <ComboBox x:Name="Selector" Margin="16,0,241,410" SelectionChanged="ComboBox_SelectionChanged" DropDownClosed="ComboBox_DropDownClosed">
                     </ComboBox>
+
+                    <Grid>
+                        <Rectangle Fill="#63d6bd" Margin="324,10,43,403"/>
+                        <TextBlock x:Name="TotalTX"
+                               Text="Total TX:"
+                               Foreground="#241f1c"
+                               FontSize="20"
+                               FontFamily="Reem Kufi"
+                               TextAlignment="Center"
+                               HorizontalAlignment="Right" Margin="0,5,74,-5"/>
+                    </Grid>
 
                 </Grid>
 
