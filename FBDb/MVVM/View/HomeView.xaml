@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500"
              Background="transparent">
-    <StackPanel>
+    <StackPanel x:Name="main">
         <TextBlock Text="Pets"
                    FontFamily="Reem Kufi"
                    Foreground="#241f1c"
@@ -69,7 +69,7 @@
                                FontSize="20"
                                FontFamily="Reem Kufi"
                                TextAlignment="Center"
-                               HorizontalAlignment="Right" Margin="0,5,74,-5"/>
+                               HorizontalAlignment="Right" Margin="0,5,47,389"/>
                     </Grid>
 
                 </Grid>

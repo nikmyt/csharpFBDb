@@ -93,27 +93,33 @@ namespace WPF.MVVM.View
             }*/
 
                     var pets = db.UserPets.ToList();
-                    foreach (var pet in pets)
+                foreach (var pet in pets)
+                {
+                    int petid = pet.PetId;
+                    string name = pet.Name;
+                    string description = pet.Description;
+                    int toxinproduced = pet.ToxProduced;
+                    double toxingeneration = pet.ToxGeneration;
+                    string sprite = pet.Sprite;
+                    bool isBought = pet.isOwnedByThisUser;
+
+                    PetsStockPanel panel = new PetsStockPanel(isBought, petid); //HMMMMM??? will it work?
+                    panel.petid = petid; //so we ARE setting petid so wtf are you pissy about
+                    panel.isBought = isBought;
+                    panel.Description1.Text = description;
+                    panel.Name1.Text = name;
+                    //panel.ToxinProduction1.Text = toxingeneration.ToString(); //reused for price
+                    BitmapImage sprito = new BitmapImage(new Uri(@"/Images/" + sprite + "/dog_sitting.png", UriKind.Relative));
+                    panel.DogStocksIcon.Source = sprito;
+                    //as for sprite, need special code to 1) set it 2)assign random sprite if no sprite is set
+
+                    //special temp pet price
+                    if (petid == 9) { panel.price.Text = 9999.ToString(); } else
                     {
-                        int petid = pet.PetId;
-                        string name = pet.Name;
-                        string description = pet.Description;
-                        int toxinproduced = pet.ToxProduced;
-                        double toxingeneration = pet.ToxGeneration;
-                        string sprite = pet.Sprite;
-                        bool isBought = pet.isOwnedByThisUser;
+                        panel.price.Text = (50 * (petid - 1)).ToString();
+                    }
 
-                        PetsStockPanel panel = new PetsStockPanel(isBought,petid); //HMMMMM??? will it work?
-                        panel.petid = petid; //so we ARE setting petid so wtf are you pissy about
-                        panel.isBought = isBought;
-                        panel.Description1.Text = description;
-                        panel.Name1.Text = name;
-                        panel.ToxinProduction1.Text = toxingeneration.ToString();
-                        BitmapImage sprito = new BitmapImage(new Uri(@"/Images/" + sprite + "/dog_sitting.png", UriKind.Relative));
-                        panel.DogStocksIcon.Source = sprito;
-                        //as for sprite, need special code to 1) set it 2)assign random sprite if no sprite is set
-
-                        StocksControl.Children.Add(panel);
+                    StocksControl.Children.Add(panel);
                     }
                 }
             }

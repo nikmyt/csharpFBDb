@@ -26,9 +26,11 @@
     <None Remove="Images\Dog3\dog_pooping.png" />
     <None Remove="Images\Dog3\dog_pooping_empty.png" />
     <None Remove="Images\Dog3\dog_sitting.png" />
+    <None Remove="Images\extra\cookie.png" />
     <None Remove="Images\extra\missing.png" />
     <None Remove="Images\extra\peter.png" />
     <None Remove="Images\extra\shadow.png" />
+    <None Remove="Images\extra\splash.png" />
     <None Remove="Images\ui\dogBubble.png" />
     <None Remove="Images\ui\dogBubbleBright.png" />
     <None Remove="Images\ui\dogLabel.png" />
@@ -98,6 +100,9 @@
     <Resource Include="Images\Dog3\dog_sitting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\extra\cookie.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\extra\missing.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -128,6 +133,12 @@
     <Resource Include="Images\ui\dogLabelLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Images\extra\splash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </SplashScreen>
   </ItemGroup>
 
 </Project>

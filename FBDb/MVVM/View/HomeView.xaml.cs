@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Xps.Serialization;
 using WPF.DB;
+using WPF.MVVM.Elements;
 //using static System.Windows.Media.Animation.SizeAnimationBase; //wew static
 
 namespace WPF.MVVM.View
@@ -67,19 +68,21 @@ namespace WPF.MVVM.View
         //Image<"DogImage"> = ;
         //nwm it just is.
 
+        int totalTxAmount;
+
         public HomeView()
         {
             InitializeComponent(); //okay
             DogImage.Source = missingpix;
             GetOwnedPets(); //yup
-            
+
             DogBreatheAnim(); //sure
 
             //DisplayPet(); //only when... SELECTED
 
             //LoadPet(petsprite,txAmount); // Because you need to show correct TX.
-            
 
+            RefreshTotals(true);
         }
 
         public void DogBreatheAnim()
@@ -146,23 +149,28 @@ namespace WPF.MVVM.View
             //}
             //FeedLabel.Source = DogLabelActive;
 
-            if (petid <= 0) { return; } else { 
-            txAmount += 1;
-            ToxinAdded += 1;
-            ToxinAmount.Text = "TX: " + txAmount.ToString();
+            if (petid <= 0) { return; }
+            else
+            {
+                SpawnDookie();
+                txAmount += (1 * petid);
+                ToxinAdded += (1 * petid);
+                ToxinAmount.Text = "TX: " + txAmount.ToString();
 
-            //if i were to just leave this screen (eg, hover over one of the windows or perhaps click off?) this triggers but rn it triggers
-            //all the time. oop.
-            //also every 10 seconds or so. autosave
-            //if(petid <= 0)
-            //{
-            SaveToxins(txAmount, petid);
-            //}
-            //EatingAnimation();
+                //if i were to just leave this screen (eg, hover over one of the windows or perhaps click off?) this triggers but rn it triggers
+                //all the time. oop.
+                //also every 10 seconds or so. autosave
+                //if(petid <= 0)
+                //{
+                SaveToxins(txAmount, petid);
+                //}
+                //EatingAnimation();
 
-            //TODO: make this anim
-            //DogImage.Source = DogEating;
-            //EatingAnimation();
+                //TODO: make this anim
+                //DogImage.Source = DogEating;
+                //EatingAnimation();
+                RefreshTotals(false); //because it's faster and i'm already acessing db with the toxins
+                //TODO: I'd like cookies/dookies to fall across the screen pls
             }
         }
 
@@ -200,6 +208,7 @@ namespace WPF.MVVM.View
 
         public void EatingAnimation()
         {
+
             doEat = true;
             System.Timers.Timer aTimer = new System.Timers.Timer(2000);
             SetTimer(aTimer);
@@ -239,7 +248,7 @@ namespace WPF.MVVM.View
 
         public void GetOwnedPets()
         {
-            
+
 
             using (var db = new myDbContext())
             {
@@ -319,16 +328,18 @@ namespace WPF.MVVM.View
         {
             using (var db = new myDbContext())
             {
-                if (Selector.SelectedItem.ToString() == null) {
+                if (Selector.SelectedItem.ToString() == null)
+                {
                     Selector.SelectedItem = "";
-                    return; }
+                    return;
+                }
                 String s = Selector.SelectedItem.ToString();
                 for (int i = 0; i < db.UserPets.Count(); i++)
                 {
                     //var result = db.UserPets.Where(o => o.PetId == i);
                     //long way
                     if (s == db.UserPets.Where(o => o.PetId == i).Select(o => o.Name).FirstOrDefault()) //a very silly way to go about it, what if theres 2 pets of same name?
-                        {
+                    {
                         //k so i get the pet thats named like that, cool. oh maybe put db.user.id into a var so i can reuse
                         //display sprite, and achieved tx amount
                         petid = db.UserPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
@@ -336,7 +347,7 @@ namespace WPF.MVVM.View
                         petsprite = db.UserPets.Where(o => o.PetId == i).Select(o => o.Sprite).FirstOrDefault(); //sprite
                         txAmount = db.UserPets.Where(o => o.PetId == i).Select(o => o.ToxProduced).FirstOrDefault();
                         LoadPet(petsprite, txAmount); //maybe onsert? or maybe not
-                        } //else { return 0; }
+                    } //else { return 0; }
                 }
             }
         }
@@ -348,6 +359,66 @@ namespace WPF.MVVM.View
             DogImage.Source = sprite; //well its not loading this, nword
             ToxinAmount.Text = "TX: " + txo; //soz not loading, cool
             DogBreatheAnim(); //oh its probably hardcoded somewhere innit
+        }
+
+        public void RefreshTotals(bool inDatabase) //bool simple or databasical
+        {
+
+            if (!inDatabase)
+            {
+                totalTxAmount += 1 * petid;
+                TotalTX.Text = "Total TX:" + totalTxAmount; //this could be sussy. but i think it's gonna be ok.
+            }
+            else
+            {
+                totalTxAmount = 0;
+                using (var db = new myDbContext())
+                {
+                    var ownedPets = db.UserPets.Where(x => x.isOwnedByThisUser == true).ToList();
+                    foreach (var pet in ownedPets)
+                    {
+                        totalTxAmount += pet.ToxProduced;
+                    }
+                }
+                TotalTX.Text = "Total TX:" + totalTxAmount;
+            }
+        }
+
+        public void SpawnDookie()
+        {
+            
+            BitmapImage dookiePic = new BitmapImage(new Uri(@"/Images/extra/dookie.png", UriKind.Relative));
+            Image dookie = new Image();
+            
+            dookie.Source = dookiePic;
+            dookie.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
+            
+            RotateTransform rotateTransform = new RotateTransform();
+            dookie.RenderTransform = rotateTransform;
+
+            Storyboard storyboard = new Storyboard();
+            
+            DoubleAnimation yAnimation = new DoubleAnimation();
+            yAnimation.From = -dookie.ActualHeight;
+            yAnimation.To = dookie.ActualHeight - 500;
+            yAnimation.Duration = TimeSpan.FromSeconds(5);
+            storyboard.Children.Add(yAnimation);
+            Storyboard.SetTarget(yAnimation, dookie);
+            Storyboard.SetTargetProperty(yAnimation, new PropertyPath("(Canvas.Top)"));
+
+            DoubleAnimation rotationAnimation = new DoubleAnimation();
+            rotationAnimation.From = 0;
+            rotationAnimation.To = 360;
+            rotationAnimation.Duration = TimeSpan.FromSeconds(5);
+            rotationAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            storyboard.Children.Add(rotationAnimation);
+            Storyboard.SetTarget(rotationAnimation, rotateTransform);
+            Storyboard.SetTargetProperty(rotationAnimation, new PropertyPath("Angle"));
+
+            storyboard.Begin();
+
+            main.Children.Add(dookie);
+
         }
     }
 }

@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:FBDb"
         xmlns:viewModel="clr-namespace:WPF.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="DogApp" Height="600" Width="600"
+        Title="DookieClicker" Height="650" Width="650"
         Background="Transparent"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         >
 
     <Window.DataContext>
@@ -44,23 +45,17 @@
 
 
             <Border BorderThickness="0">
-            <Image Source="Images/extra/peter.png" Margin="5"/>
-                <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#c8b7b7" Offset="0.0"/>
-                        <GradientStop Color="#e3dbdb" Offset="0.3"/>
-                </LinearGradientBrush>
-                </Border.Background>
+                <Image Source="Images/extra/cookie.png" Margin="5"/>
             </Border>
 
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal">
 
-                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                <RadioButton Content="Stocks" Style="{StaticResource MenuButtonTheme}" IsChecked="False"
                              Command="{Binding PetStocksViewCommand}"/>
                 <RadioButton Content="Pets" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
-                <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="True"
+                <RadioButton Content="Settings" Style="{StaticResource MenuButtonTheme}" IsChecked="False"
                              Command="{Binding SettingsViewCommand}"/>
 
             </StackPanel>

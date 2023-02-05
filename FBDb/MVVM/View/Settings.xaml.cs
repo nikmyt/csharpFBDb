@@ -39,6 +39,10 @@ namespace WPF.MVVM.View
                 foreach (var pet in ownedPets)
                 {
                     pet.ToxProduced = 0;
+                    if (pet.PetId != 1) //1 is peter
+                    {
+                        pet.isOwnedByThisUser = false;
+                    }
                     db.SaveChanges();
                 }
             }

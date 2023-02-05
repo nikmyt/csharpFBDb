@@ -36,7 +36,15 @@
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="CadetBlue"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="Transparent" Offset="0.5"/>
+                            <GradientStop Color="CadetBlue" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+
             </Trigger>
         </Style.Triggers>
 

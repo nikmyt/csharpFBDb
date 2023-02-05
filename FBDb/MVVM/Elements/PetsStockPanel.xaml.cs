@@ -56,7 +56,15 @@ namespace WPF.MVVM.Elements
                 } else { UnBoughtPet(); }
             }*/
 
-            if (!isBought) { UnBoughtPet(petId); } else { BoughtPet(petId); }
+            if (petid != 9)
+            {
+                if (!isBought) { UnBoughtPet(petId); } else { BoughtPet(petId); }
+            }
+            else
+            {
+                Buytton.IsEnabled = false;
+                Buytton.Content = "Daniel.";
+            }
             //Well, okay. It still didn't initialize. There Must be a way to get it to refresh!... Man I don't want to put
             //empty buttons n shit. But maybe I must.
 
@@ -75,48 +83,46 @@ namespace WPF.MVVM.Elements
 
             //if petid is in ownedpets, then isBought = true
 
-
+            
             //Buytton click alternative + init
             Buytton.Click += BuySell;
             Buytton.Click += (s, e) =>
             {
                 //MessageBox.Show("click" + petId + petid);
-                if (!isBought)
+                if (isBought)
+                {
+                    if (CheckIfEnoughMoney())
+                    {
+                        BoughtPet(petid);
+                        isBought = false;
+                    }
+                }
+                else
                 {
                     UnBoughtPet(petid);
                     isBought = true;
+
                 }
-                else
+            };
+        }
+
+        private void BuySell(object sender, RoutedEventArgs e)
+        {
+            /*
+            //new challenge, have it check both moneystatus and if it's bought
+            if (isBought)
+            {
+                if (CheckIfEnoughMoney())
                 {
                     BoughtPet(petid);
                     isBought = false;
                 }
-            };
-
-        }
-
-        private void BuySell(object sender, RoutedEventArgs e) //So this doesn't... work??? Really?
-                                                                     //so i just spend weeks debugging DB but it's the freaking button
-                                                                     //why
-                                                                     //Click="BuySell"
-        {
-            //Console.WriteLine("pee");
-            //Buytton.Content = "pee";
-            //i could do it by elements number lol
-            //Console.WriteLine(db.Pets.Where(o => o.PetId == i) + " is the pet number " + i);
-            //petid = db.OwnedPets.Where(o => o.PetId == i).Select(o => o.PetId).FirstOrDefault();
-
-            //Hmm. Its flipped. Let's check upstream.
-            if (!isBought)
-            {
-                UnBoughtPet(petid);
-                isBought = true;
             }
             else
             {
-                BoughtPet(petid);
-                isBought = false;
-            }
+                UnBoughtPet(petid);
+                isBought = true;
+            }*/
         }
 
         private void BoughtPet(int petId)
@@ -164,5 +170,29 @@ namespace WPF.MVVM.Elements
                 return;
             }
         }
+
+        private bool CheckIfEnoughMoney() //this checks if 1a) you have money and can buy 2) sell pet
+        {
+            int totalTx = 0; //so if i have
+            using (var db = new myDbContext())
+            {
+                var ownedPets = db.UserPets.Where(x => x.isOwnedByThisUser == true).ToList();
+                foreach (var pet in ownedPets)
+                {
+                    totalTx += pet.ToxProduced;
+                }
+            }
+                //check total tx. get it from DB
+                //show popup if too low dookie
+                if (totalTx >= int.Parse(price.Text))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("You don't have enough dookie to deserve this pet! Get some more!");
+                    return false;
+                }
+            }
+        }
     }
-}
